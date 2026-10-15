@@ -8,9 +8,9 @@ In ERPNext, the **Fluid** workspace (sidebar) links to everything, and **Fluid S
 |---|---|---|---|
 | Settings and add-on list | Single DocType `Fluid Settings` | `fluid_erp/fluid_erp/doctype/fluid_settings/` | `/app/fluid-settings` |
 | Sidebar entry linking every add-on | Workspace `Fluid` | `fluid_erp/fluid_erp/workspace/fluid/fluid.json` | `/app/fluid` |
-| Business dashboard (Production, Sales, Purchases, Weighments) | Web Page `business-dashboard` | `fluid_erp/fluid_erp/web_page/business_dashboard/business_dashboard.json` | `/dashboard` |
-| Daily review, flip cards | Web Page `daily-review` | `fluid_erp/fluid_erp/web_page/daily_review/daily_review.json` | `/daily` |
-| Daily review, stories | Web Page `daily-stories` | `fluid_erp/fluid_erp/web_page/daily_stories/daily_stories.json` | `/stories` |
+| Business dashboard (Production, Sales, Purchases, Weighments) | Web Page `business-dashboard` | `fluid_erp/fluid_erp/web_page/business_dashboard/business_dashboard.json` | `/fluid-dashboard` |
+| Daily review, flip cards | Web Page `daily-review` | `fluid_erp/fluid_erp/web_page/daily_review/daily_review.json` | `/fluid-daily` |
+| Daily review, stories | Web Page `daily-stories` | `fluid_erp/fluid_erp/web_page/daily_stories/daily_stories.json` | `/fluid-stories` |
 | Daily Operations Review (3-page landscape A4 PDF) | Print Format on DRI Production | `fluid_erp/fluid_erp/print_format/daily_operations_review/daily_operations_review.json` | DRI Production → Print |
 | Kiln DPR, A3 landscape | Print Format `Kiln DPR A3` on DRI Production | `fluid_erp/fluid_erp/print_format/kiln_dpr_a3/kiln_dpr_a3.json` | DRI Production → Print |
 | Sends the daily PDF to Telegram at 10:00 | Server Script `Daily Operations Review Sender` (Scheduler Event, cron `0 10 * * *`) | `fluid_erp/fluid_erp/server_script/daily_operations_review_sender/` | — |
@@ -29,5 +29,5 @@ Each folder here (`dashboard-web-page`, `daily-cards`, `daily-stories`, `daily-r
 ## Before the first migrate
 
 - A record with the same name already on the site (for example a print format you created by hand as `Daily Operations Review`, or a server script named `sendtelegramfile`) is replaced by the app's version.
-- Records with a different name are not touched. Delete or disable your hand-made copies so you don't get two pages on the same route (`/dashboard`, `/daily`, `/stories`), two `sendtelegramfile` API scripts, or two daily Telegram sends.
+- Records with a different name are not touched. The app's pages use `fluid-` routes so they never clash with hand-made pages (Web Page routes must be unique, and a clash stops `bench migrate`); once the app's pages work, delete your hand-made ones. Also remove a hand-made `sendtelegramfile` API script or daily-send script under another name, or you'll get two of them.
 - Server scripts must be enabled on the site (`bench --site <site> set-config server_script_enabled true` on self-hosted benches), and the scheduler must be running. Set the Telegram profile in Fluid Settings if it isn't `NPSL Purchase`; the same page has a switch to pause the daily PDF.
