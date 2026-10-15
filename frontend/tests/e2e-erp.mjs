@@ -7,6 +7,7 @@ import { extname, join } from 'node:path';
 
 const dist = join(process.cwd(), 'dist');
 const sent = [];
+const reports = [];
 const po = { name: 'PUR-ORD-0001', doctype: 'Purchase Order', docstatus: 1, status: 'To Receive and Bill', supplier: 'Raj Electric', transaction_date: '2026-10-10', per_received: 0, per_billed: 0, grand_total: 61000,
   items: [{ item_code: 'FAN', item_name: 'Ceiling Fan', qty: 30, rate: 1440, amount: 43200, uom: 'Nos' }] };
 const data = {
@@ -31,6 +32,13 @@ const server = createServer(async (req, res) => {
     const method = url.pathname.replace('/api/method/', '');
     const args = body ? JSON.parse(body) : {};
     if (method.endsWith('make_purchase_receipt')) return json(res, { message: { doctype: 'Purchase Receipt', supplier: 'Raj Electric', items: [{ item_code: 'FAN', qty: 30, rate: 1440, purchase_order: 'PUR-ORD-0001', uom: 'Nos' }] } });
+    if (method === 'frappe.desk.query_report.run') {
+      reports.push(args);
+      if (args.report_name === 'General Ledger') return json(res, { message: { columns: [{ fieldname: 'posting_date', label: 'Posting Date', fieldtype: 'Date' }, { fieldname: 'debit', label: 'Debit', fieldtype: 'Currency' }, { fieldname: 'credit', label: 'Credit', fieldtype: 'Currency' }, { fieldname: 'voucher_type', label: 'Voucher Type', fieldtype: 'Data' }, { fieldname: 'voucher_no', label: 'Voucher No', fieldtype: 'Dynamic Link' }],
+        result: [{ posting_date: '2026-10-10', debit: 0, credit: 61000, voucher_type: 'Purchase Order', voucher_no: 'PUR-ORD-0001' }] } });
+      return json(res, { message: { columns: [{ fieldname: 'account', label: 'Account', fieldtype: 'Link' }, { fieldname: 'debit', label: 'Debit', fieldtype: 'Currency' }, { fieldname: 'credit', label: 'Credit', fieldtype: 'Currency' }],
+        result: [{ account: 'Current Assets - TC', account_name: 'Current Assets', indent: 0, debit: 500 }, { account: 'Cash - TC', account_name: 'Cash', indent: 1, debit: 500 }, {}, { account: "'Total'", indent: 0, debit: 500, credit: 500 }] } });
+    }
     if (method === 'frappe.client.insert') return json(res, { message: { ...args.doc, name: args.doc.doctype === 'Purchase Order' ? 'PUR-ORD-0002' : 'MAT-PRE-0001', docstatus: 0 } });
     if (method === 'frappe.client.submit') return json(res, { message: { ...args.doc, docstatus: 1 } });
     return json(res, { message: null });
@@ -68,5 +76,11 @@ console.log('PO save:', (await h1()).replace(/\n/g, ' '), '| errors box:', await
 const ins = sent.filter((s) => s.path.endsWith('frappe.client.insert'));
 console.log('insert payloads:', JSON.stringify(ins.map((s) => s.body.doc)));
 console.log('csrf on POSTs:', sent.filter((s) => s.method === 'POST').every((s) => s.csrf === 'tok123'));
+await k('Escape'); await k('Escape'); await k('Escape'); await k('Escape'); await k('Escape'); await wait();
+await k('g'); await k('t'); await wait(500); console.log('TB:', await h1(), '| rows:', await page.locator('table.report tbody tr').count());
+await page.screenshot({ path: `${out}/erp-05-tb.png` });
+await k('ArrowDown'); await k('Enter'); await wait(500); console.log('drill ->', await h1(), '| filters:', JSON.stringify(reports.at(-1).filters));
+await k('Enter'); await wait(500); console.log('drill2 ->', (await h1()).replace(/\n/g, ' '));
+console.log('TB filters:', JSON.stringify(reports[0]));
 console.log('ERRORS:', errors);
 await browser.close(); server.close();

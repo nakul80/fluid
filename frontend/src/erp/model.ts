@@ -35,7 +35,8 @@ export type ErpView =
   | { name: 'cycle'; side: 'purchase' | 'sales' }
   | { name: 'doc'; type: DocType; id: string }
   | { name: 'new'; type: DocType; draft?: Record<string, unknown> }
-  | { name: 'stock' };
+  | { name: 'stock' }
+  | { name: 'report'; key: import('./Reports').ReportKey; account?: string };
 
 interface State { nav: ErpView[]; masters?: Masters; error?: string; toast?: { text: string; tone: 'good' | 'bad'; at: number }; palette: boolean; version: number }
 

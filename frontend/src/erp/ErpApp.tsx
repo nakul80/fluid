@@ -6,9 +6,10 @@ import { compact, fmtDate, money, qty, todayISO } from '../format';
 import { DateInput, focusNext, Kbd, Modal, NumInput, Option, PageHead, Pill, Picker, TextInput, useListNav } from '../ui/common';
 import {
   api, blankDoc, boot, createNext, dateField, dayBook, deskUrl, DocRow, ErpLine, erpNav, erpState, erpToast, ErpView, finalize, invalidate,
-  isPurchase, ITEM_TYPES, ItemType, linkedDocs, loadMasters, Masters, partyField, reportUrl, setErpPalette, typeOfDoctype, useErp,
+  isPurchase, ITEM_TYPES, ItemType, linkedDocs, loadMasters, Masters, partyField, setErpPalette, typeOfDoctype, useErp,
 } from './model';
 import { DOCTYPE } from '../api/erpnext';
+import { ReportScreen } from './Reports';
 
 type Tone = 'neutral' | 'info' | 'warn' | 'good' | 'bad';
 
@@ -38,12 +39,12 @@ const MENU: { title: string; items: MenuItem[] }[] = [
     { key: 's', label: 'Sales cycle', view: { name: 'cycle', side: 'sales' } },
     { key: 'k', label: 'Stock Summary', view: { name: 'stock' } },
   ] },
-  { title: 'Reports (ERPNext)', items: [
-    { key: 'r', label: 'Receivables', href: reportUrl('Accounts Receivable') },
-    { key: 'y', label: 'Payables', href: reportUrl('Accounts Payable') },
-    { key: 't', label: 'Trial Balance', href: reportUrl('Trial Balance') },
-    { key: 'p', label: 'Profit & Loss', href: reportUrl('Profit and Loss Statement') },
-    { key: 'b', label: 'Balance Sheet', href: reportUrl('Balance Sheet') },
+  { title: 'Reports', items: [
+    { key: 'r', label: 'Receivables', view: { name: 'report', key: 'receivable' } },
+    { key: 'y', label: 'Payables', view: { name: 'report', key: 'payable' } },
+    { key: 't', label: 'Trial Balance', view: { name: 'report', key: 'tb' } },
+    { key: 'p', label: 'Profit & Loss', view: { name: 'report', key: 'pl' } },
+    { key: 'b', label: 'Balance Sheet', view: { name: 'report', key: 'bs' } },
   ] },
 ];
 const CREATE: DocType[] = ['PBILL', 'SINV', 'PO', 'SO', 'GRN', 'DN'];
@@ -146,6 +147,7 @@ function Screen({ view, m }: { view: ErpView; m: Masters }) {
     case 'doc': return <DocView key={view.id} type={view.type} id={view.id} />;
     case 'new': return <NewDoc key={JSON.stringify(view.draft ?? view.type)} type={view.type} draft={view.draft} m={m} />;
     case 'stock': return <Stock m={m} />;
+    case 'report': return <ReportScreen key={view.key + (view.account ?? '')} rkey={view.key} account={view.account} />;
   }
 }
 

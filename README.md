@@ -43,7 +43,8 @@ Opened at `/fluid` on your site, Fluid reads and writes your ERPNext data with y
 - Purchase Order, Purchase Receipt, Purchase Invoice, Sales Order, Delivery Note and Sales Invoice: keyboard entry (Shift+F9, Alt+F9, F9, Shift+F8, Alt+F8, F8), saved and submitted in ERPNext.
 - On a saved document: R receive, B bill, D deliver, I invoice, P pay / receive (uses ERPNext's own "make" mappings, so links and pending quantities are ERPNext's), X cancel, O open in ERPNext.
 - Day Book, purchase and sales cycle boards, stock summary, Ctrl+K search by document number.
-- Payment and Receipt from a bill or invoice (P). Standalone payments, journals, contra and the financial reports open in ERPNext for now.
+- Payment and Receipt from a bill or invoice (P). Standalone payments, journals and contra open in ERPNext for now.
+- Reports inside Fluid: Trial Balance, Profit & Loss, Balance Sheet, Receivables, Payables (ERPNext's own reports, drawn in Fluid). Enter drills from an account to its ledger, and from a ledger line to the voucher.
 
 Opened anywhere else (or `npm run dev`), it shows the demo company instead.
 
