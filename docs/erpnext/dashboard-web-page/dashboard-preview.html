@@ -1,0 +1,1341 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Business dashboard</title><style>#wd {
+    --ink: #172c39;
+    --teal: #007e80;
+    --line: #dce6eb;
+    --muted: #617581;
+    --s1: #2a78d6;
+    --s2: #eb6834;
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 10px;
+    color: var(--ink);
+    font: 14px/1.5 system-ui, sans-serif;
+    margin: 8px 0;
+    padding: 8px;
+    background: #f3f7f9;
+    border-radius: 10px
+}
+
+#wd * {
+    box-sizing: border-box
+}
+
+#wd [hidden] {
+    display: none !important
+}
+
+/* Sidebar */
+#wd .side {
+    position: sticky;
+    top: 8px;
+    align-self: start;
+    background: var(--ink);
+    color: white;
+    border-radius: 8px;
+    padding: 14px 8px;
+    min-height: calc(100vh - 40px)
+}
+
+#wd .brand {
+    padding: 0 8px 14px
+}
+
+#wd .brand .eyebrow {
+    color: #7fd0d1
+}
+
+#wd .brand strong {
+    display: block;
+    font-size: 15px
+}
+
+#wd nav a {
+    display: block;
+    padding: 8px 10px;
+    margin-bottom: 2px;
+    border-radius: 6px;
+    color: #cfe0e6;
+    text-decoration: none;
+    font-weight: 600
+}
+
+#wd nav a:hover {
+    background: rgba(255, 255, 255, .08);
+    color: white
+}
+
+#wd nav a.active {
+    background: var(--teal);
+    color: white
+}
+
+/* Main column */
+#wd main {
+    min-width: 0;
+    container-type: inline-size
+}
+
+#wd header,
+#wd .section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px
+}
+
+#wd h1 {
+    font-size: 22px;
+    letter-spacing: -.5px;
+    margin: 0
+}
+
+#wd h3 {
+    font-size: 13px;
+    margin: 0 0 4px
+}
+
+#wd h2 {
+    font-size: 15px;
+    margin: 0 0 2px
+}
+
+#wd .eyebrow {
+    display: block;
+    color: var(--teal);
+    letter-spacing: 1.5px;
+    font-size: 11px;
+    font-weight: 700;
+    margin: 0
+}
+
+#wd .muted {
+    color: var(--muted);
+    font-size: 12px;
+    margin: 0 0 8px
+}
+
+#wd button {
+    background: var(--teal);
+    color: white;
+    border: 0;
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font: inherit;
+    font-size: 13px
+}
+
+#wd button:disabled {
+    opacity: .45;
+    cursor: default
+}
+
+#wd .filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 8px;
+    margin: 8px 0
+}
+
+#wd label {
+    font-size: 12px;
+    color: #526b78
+}
+
+#wd input,
+#wd select {
+    display: block;
+    width: 100%;
+    height: 32px;
+    margin-top: 2px;
+    padding: 4px 7px;
+    border: 1px solid #cbdbe1;
+    border-radius: 6px;
+    background: white;
+    color: var(--ink);
+    font: inherit;
+    font-size: 13px
+}
+
+#wd .tools {
+    display: flex;
+    align-items: center;
+    gap: 8px
+}
+
+#wd .check {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap
+}
+
+#wd .check input {
+    width: auto;
+    height: auto;
+    margin: 0
+}
+
+#wd .tools select {
+    width: auto;
+    height: 30px;
+    margin: 0
+}
+
+#wd #wd-message {
+    padding: 6px 12px;
+    margin: 0 0 8px;
+    background: #e5f2f2;
+    border-radius: 6px;
+    font-size: 13px;
+    overflow-wrap: anywhere
+}
+
+/* Cards */
+#wd .cards {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+    margin: 0 0 8px
+}
+
+@container (min-width: 1150px) {
+    #wd .cards {
+        grid-template-columns: repeat(8, minmax(0, 1fr))
+    }
+}
+
+#wd .card,
+#wd section {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 12px
+}
+
+#wd .card small {
+    display: block;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.35
+}
+
+#wd .card strong {
+    display: block;
+    font-size: 20px;
+    margin: 2px 0;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums
+}
+
+/* Layout blocks */
+#wd .charts {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-bottom: 8px
+}
+
+@container (min-width: 800px) {
+    #wd .charts {
+        grid-template-columns: 3fr 2fr
+    }
+}
+
+@container (min-width: 800px) {
+    #wd .charts.even {
+        grid-template-columns: repeat(2, minmax(0, 1fr))
+    }
+}
+
+#wd section {
+    margin-bottom: 8px
+}
+
+#wd .charts section {
+    margin-bottom: 0
+}
+
+#wd .pair {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    align-items: start;
+    margin-bottom: 8px
+}
+
+#wd .pair section {
+    margin-bottom: 0
+}
+
+@container (min-width: 1200px) {
+    #wd .pair {
+        grid-template-columns: repeat(2, minmax(0, 1fr))
+    }
+
+    #wd .pair th,
+    #wd .pair td {
+        padding: 5px 6px
+    }
+}
+
+/* Tables */
+#wd .table-scroll {
+    overflow: auto
+}
+
+#wd table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    white-space: nowrap
+}
+
+#wd th {
+    text-align: left;
+    color: var(--muted);
+    background: #f5f8fa;
+    font-weight: 600
+}
+
+#wd th,
+#wd td {
+    padding: 5px 8px;
+    border-bottom: 1px solid var(--line)
+}
+
+#wd tr.sub td {
+    background: #f5f8fa;
+    font-weight: 600
+}
+
+/* Long party names are cut short; the full name shows on hover. */
+#wd td.clip {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+#wd td.clip .link {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+#wd td.indent {
+    padding-left: 22px
+}
+
+#wd tr.total td {
+    border-top: 2px solid #b8c8cf;
+    font-weight: 700
+}
+
+#wd .num {
+    text-align: right;
+    font-variant-numeric: tabular-nums
+}
+
+#wd .link {
+    padding: 0;
+    background: transparent;
+    color: var(--teal);
+    text-align: left;
+    font-size: 12px
+}
+
+#wd a {
+    color: var(--teal)
+}
+
+#wd .pager {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--muted)
+}
+
+#wd .foot {
+    margin: 6px 0 0
+}
+
+/* Horizontal bars */
+#wd .bar-row {
+    display: grid;
+    grid-template-columns: 100px 1fr 90px;
+    align-items: center;
+    gap: 8px;
+    margin: 5px 0;
+    font-size: 12px
+}
+
+#wd .bar-track {
+    background: #edf3f6;
+    border-radius: 4px;
+    height: 13px
+}
+
+#wd .bar-fill {
+    height: 100%;
+    background: var(--teal);
+    border-radius: 4px
+}
+
+#wd .bar-fill.quiet {
+    background: #a9bcc5
+}
+
+/* Column chart */
+#wd .legend {
+    display: flex;
+    gap: 14px;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 6px
+}
+
+#wd .sw {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    margin-right: 5px;
+    vertical-align: -1px
+}
+
+#wd .s1 {
+    background: var(--s1)
+}
+
+#wd .s2 {
+    background: var(--s2)
+}
+
+#wd .colchart {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 6px
+}
+
+#wd .axis {
+    height: 170px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--muted);
+    text-align: right;
+    line-height: 1
+}
+
+#wd .plot,
+#wd .xlabels {
+    display: flex;
+    gap: 4px
+}
+
+#wd .plot {
+    height: 170px;
+    border-bottom: 1px solid #b8c8cf;
+    background: linear-gradient(#e8eef1 1px, transparent 1px) 0 0 / 100% 50%
+}
+
+#wd .plot {
+    position: relative
+}
+
+/* Target line on column charts */
+#wd .target {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-top: 2px dashed var(--s2);
+    pointer-events: none;
+    z-index: 1
+}
+
+#wd .target-sw {
+    height: 0;
+    width: 14px;
+    border-top: 2px dashed var(--s2);
+    border-radius: 0;
+    vertical-align: middle
+}
+
+#wd .eyebrow.block {
+    margin: 4px 0 6px 2px
+}
+
+#wd .col-group {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    padding: 0 1px;
+    min-width: 0
+}
+
+#wd .col-group:hover {
+    background: rgba(23, 44, 57, .05)
+}
+
+#wd .col {
+    flex: 1;
+    border-radius: 4px 4px 0 0;
+    min-width: 2px
+}
+
+#wd .xlabels {
+    grid-column: 2
+}
+
+#wd .xlabels span {
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    font-size: 10px;
+    color: var(--muted);
+    overflow: hidden;
+    white-space: nowrap
+}
+
+#wd .xlabels.dense span:nth-child(even) {
+    visibility: hidden
+}
+
+@container (max-width: 700px) {
+    #wd .xlabels span:nth-child(even) {
+        visibility: hidden
+    }
+}
+
+#wd .tip {
+    position: fixed;
+    z-index: 1000;
+    pointer-events: none;
+    background: var(--ink);
+    color: white;
+    font-size: 12px;
+    padding: 5px 8px;
+    border-radius: 6px;
+    max-width: 300px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, .18)
+}
+
+#wd details {
+    font-size: 12px;
+    color: var(--muted);
+    margin: 4px 0 8px
+}
+
+#wd summary {
+    cursor: pointer;
+    font-weight: 600
+}
+
+#wd .empty {
+    padding: 10px;
+    margin: 0;
+    color: var(--muted)
+}
+
+#wd :focus-visible {
+    outline: 3px solid #54b7d0;
+    outline-offset: 2px
+}
+
+@media(max-width:800px) {
+    #wd {
+        grid-template-columns: minmax(0, 1fr)
+    }
+
+    #wd .side {
+        position: static;
+        min-height: 0;
+        padding: 8px
+    }
+
+    #wd .brand {
+        display: none
+    }
+
+    #wd nav {
+        display: flex;
+        gap: 4px;
+        overflow-x: auto
+    }
+
+    #wd nav a {
+        margin: 0;
+        white-space: nowrap
+    }
+}
+
+@media(max-width:520px) {
+    #wd {
+        padding: 6px;
+        margin: 0
+    }
+
+    #wd .cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr))
+    }
+
+    #wd .card strong {
+        font-size: 17px
+    }
+
+    #wd .bar-row {
+        grid-template-columns: 80px 1fr 80px
+    }
+}
+
+@media print {
+
+    #wd .side,
+    #wd .filters,
+    #wd button,
+    #wd .pager {
+        display: none
+    }
+
+    #wd {
+        display: block;
+        margin: 0;
+        padding: 0;
+        background: white
+    }
+
+    #wd .table-scroll {
+        overflow: visible
+    }
+
+    #wd section {
+        break-inside: avoid
+    }
+}
+</style></head><body><div id="wd">
+  <aside class="side">
+    <div class="brand"><span class="eyebrow">DASHBOARD</span><strong></strong></div>
+    <nav>
+      <a href="#production" data-nav="production">Production</a>
+      <a href="#sales" data-nav="sales">Sales</a>
+      <a href="#purchases" data-nav="purchases">Purchases</a>
+      <a href="#weighments" data-nav="weighments">Weighments</a>
+    </nav>
+  </aside>
+  <main>
+    <header><div><h1 id="wd-title">Sales</h1><p id="wd-subtitle" class="muted"></p></div><button id="wd-refresh">Refresh</button></header>
+    <div class="filters">
+      <label>From<input id="wd-from" type="date"></label>
+      <label>To<input id="wd-to" type="date"></label>
+      <label id="wd-company-wrap" data-for="sales purchases">Company<select id="wd-company"><option value="">All companies</option></select></label>
+      <label data-for="sales">Customer<select id="wd-sales-party"><option value="">All customers</option></select></label>
+      <label data-for="sales">Material<select id="wd-sales-item"><option value="">All materials</option></select></label>
+      <label data-for="purchases">Supplier<select id="wd-purchases-party"><option value="">All suppliers</option></select></label>
+      <label data-for="purchases">Material<select id="wd-purchases-item"><option value="">All materials</option></select></label>
+      <label data-for="weighments">Movement<select id="wd-w-movement"><option value="">All movements</option></select></label>
+      <label data-for="weighments">Party<select id="wd-w-party"><option value="">All parties</option></select></label>
+      <label data-for="weighments">Material<select id="wd-w-item"><option value="">All materials</option></select></label>
+      <label data-for="production">Kiln<select id="wd-p-kiln"><option value="">All kilns</option></select></label>
+    </div>
+    <p id="wd-message" role="status">Loading…</p>
+    <div id="wd-view-sales" data-view="sales"></div>
+    <div id="wd-view-purchases" data-view="purchases" hidden></div>
+    <div id="wd-view-weighments" data-view="weighments" hidden></div>
+    <div id="wd-view-production" data-view="production" hidden></div>
+  </main>
+  <div id="wd-tip" class="tip" hidden></div>
+</div>
+<script>  (() => {
+    'use strict';
+    const root = document.getElementById('wd');
+    if (!root) return;
+    const $ = key => root.querySelector('#wd-' + key);
+
+    /* ---------- Formatting & parsing ---------- */
+    const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    const numeric = v => {
+      if (v == null || String(v).trim() === '') return null;
+      const n=Number(String(v).replace(/,/g,'').trim());
+      return Number.isFinite(n)?n:null;
+    };
+    const fmt = (v, digits=1) => v == null || !Number.isFinite(v) ? '—' : v.toLocaleString('en-IN',{maximumFractionDigits:digits, minimumFractionDigits:digits});
+    const inr = v => { if (v == null || !Number.isFinite(v)) return '—'; const a=Math.abs(v); return a>=1e5?'₹'+fmt(v/1e7,2)+' Cr':'₹'+fmt(v,0); };
+    const count = (n, one, many) => n.toLocaleString('en-IN')+' '+(n===1?one:many);
+    const sum = (rows, f) => rows.reduce((s,r)=>s+(f(r)||0),0);
+    const distinct = (rows, f) => new Set(rows.map(f)).size;
+    const link = (doctype, name) => '/app/'+encodeURIComponent(doctype.toLowerCase().replace(/ /g,'-'))+'/'+encodeURIComponent(name);
+
+    const GROUPS=['SPONGE','PELLET','COAL','TMT','OTHER'];
+    // TMT first so names like "TMT BAR" never fall into another bucket.
+    const category = m => { const u=String(m || '').toUpperCase(); return ['TMT','SPONGE','PELLET','COAL'].find(k=>u.includes(k)) || 'OTHER'; };
+    const itemCategory = (name, group) => { const c=category(name); return c==='OTHER'?category(group):c; };
+    // Invoice/order quantities are converted from the stock UOM; lines in other UOMs (Nos, Ltr…) carry no tonnage.
+    const MT_PER_UOM={KG:.001,KGS:.001,KILOGRAM:.001,KILOGRAMS:.001,QTL:.1,QUINTAL:.1,MT:1,TON:1,TONS:1,TONNE:1,TONNES:1,'METRIC TON':1,'METRIC TONNE':1};
+    const toMT = (qty, uom) => { const f=MT_PER_UOM[String(uom || '').trim().toUpperCase()], q=numeric(qty); return f==null || q==null?null:q*f; };
+
+    let zone='', today='', snapshot=null, sessionReady=null;
+    // Normalize supported date forms to site wall time. Offsets are converted to site timezone.
+    function time(v) {
+      if (!v) return null;
+      let value=String(v).trim();
+      if (/[zZ]$|[+-]\d{2}:?\d{2}$/.test(value)) {
+        const instant=new Date(value);
+        if (!Number.isFinite(instant.getTime())) return null;
+        const parts=new Intl.DateTimeFormat('en-GB',{timeZone:zone || 'Asia/Kolkata',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).formatToParts(instant);
+        const p=Object.fromEntries(parts.map(x=>[x.type,x.value]));
+        value=p.year+'-'+p.month+'-'+p.day+' '+p.hour+':'+p.minute+':'+p.second;
+      }
+      const m=value.match(/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})(?::(\d{2})(?:\.\d+)?)?$/);
+      if (!m) return null;
+      const a=m.slice(1).map(x=>Number(x || 0)), ms=Date.UTC(a[0],a[1]-1,a[2],a[3],a[4],a[5]), d=new Date(ms);
+      return d.getUTCFullYear()===a[0] && d.getUTCMonth()===a[1]-1 && d.getUTCDate()===a[2] && d.getUTCHours()===a[3] && d.getUTCMinutes()===a[4] && d.getUTCSeconds()===a[5] ? ms : null;
+    }
+    function quantile(arr,p) {
+      if (!arr.length) return null;
+      const s=[...arr].sort((a,b)=>a-b), n=(s.length-1)*p, i=Math.floor(n);
+      return s[i]+(s[Math.ceil(n)]-s[i])*(n-i);
+    }
+    function wallNow(tz) {
+      const parts=new Intl.DateTimeFormat('en-GB',{timeZone:tz,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).formatToParts(new Date());
+      const p=Object.fromEntries(parts.map(x=>[x.type,x.value]));
+      return Date.UTC(+p.year,+p.month-1,+p.day,+p.hour,+p.minute,+p.second);
+    }
+    const daysBetween = (a, b) => Math.round((Date.parse(b)-Date.parse(a))/864e5);
+    const MONTHS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const monthLabel = k => MONTHS[+k.slice(5,7)-1]+' '+k.slice(2,4);
+    // Month keys from the date filter (or the data when unset); at most the last 24 months.
+    function monthKeys(from, to, dates) {
+      const ds=dates.filter(Boolean).sort(), a=(from || ds[0] || '').slice(0,7), b=(to || ds[ds.length-1] || '').slice(0,7);
+      if (!a || !b || a>b) return [];
+      const keys=[]; let [y,m]=a.split('-').map(Number);
+      while (keys.length<600) { const k=y+'-'+String(m).padStart(2,'0'); keys.push(k); if (k===b) break; if (++m>12) { m=1; y++; } }
+      return keys.slice(-24);
+    }
+    const stamp = () => new Intl.DateTimeFormat('en-IN',{timeZone:zone,dateStyle:'medium',timeStyle:'short'}).format(new Date());
+
+    /* ---------- ERPNext API ---------- */
+    async function api(method, params={}) {
+      const response=await fetch('/api/method/'+method+'?'+new URLSearchParams(params),{credentials:'same-origin',headers:{Accept:'application/json'},cache:'no-store'});
+      const what=params.doctype || 'the data';
+      if (response.status===403) throw new Error('No permission to read '+what+'. Ask your administrator for read access.');
+      if (!response.ok) throw new Error('ERPNext returned '+response.status+' while reading '+what+'. Check login, permissions and field names.');
+      const json=await response.json();
+      if (json.exc || json.exception) throw new Error('ERPNext could not read '+what+'. Check field names and permissions.');
+      return json.message;
+    }
+    // Reads every matching row, 500 at a time. Child tables need their parent doctype.
+    async function list(doctype, fields, filters, parent, progress) {
+      const rows=new Map(); let offset=0;
+      while (true) {
+        const params={doctype,fields:JSON.stringify(fields),filters:JSON.stringify(filters),order_by:'name asc',limit_start:String(offset),limit_page_length:'500'};
+        if (parent) params.parent=parent;
+        const batch=await api('frappe.client.get_list',params);
+        if (!Array.isArray(batch)) throw new Error('Unexpected response while reading '+doctype+'; nothing has been displayed.');
+        batch.forEach(r=>rows.set(r.name,r)); offset+=batch.length;
+        if (progress) progress(rows.size);
+        if (!batch.length) break;
+        if (offset>1e6) throw new Error('More than 1,000,000 '+doctype+' rows. This volume needs a server-side report.');
+      }
+      return [...rows.values()];
+    }
+    // Item rows for the given parents, 80 parents per request, 4 requests in flight.
+    async function children(doctype, parent, fields, names, progress) {
+      const chunks=[]; for (let i=0;i<names.length;i+=80) chunks.push(names.slice(i,i+80));
+      const total=chunks.length, out=[]; let done=0;
+      const worker=async()=>{ while (chunks.length) { const c=chunks.shift(); out.push(...await list(doctype,fields,[['parent','in',c]],parent)); if (progress) progress(++done,total); } };
+      await Promise.all([1,2,3,4].map(worker));
+      return out;
+    }
+    function session() {
+      return sessionReady || (sessionReady=(async()=>{
+        if (location.protocol==='file:') throw new Error('This is the installation preview. Install the HTML, CSS and JavaScript on an ERPNext Web Page to read live data.');
+        const user=await api('frappe.auth.get_logged_user');
+        if (!user || user==='Guest') throw new Error('Please log in to ERPNext before loading this dashboard.');
+        const tz=await api('frappe.client.get_time_zone');
+        zone=tz && tz.time_zone;
+        if (typeof zone!=='string' || !zone) throw new Error('Site timezone could not be read; nothing has been calculated.');
+        today=new Date(wallNow(zone)).toISOString().slice(0,10);
+      })().catch(e=>{ sessionReady=null; throw e; }));
+    }
+
+    /* ---------- Shared UI pieces ---------- */
+    const msg = t => { $('message').textContent=t; };
+    function cards(el, list) {
+      el.innerHTML=list.map(([label,val,note])=>'<div class="card"><small>'+esc(label)+'</small><strong>'+esc(val)+'</strong><small>'+esc(note)+'</small></div>').join('');
+    }
+    function hbars(el, rows, empty) {
+      const max=Math.max(1e-9,...rows.map(r=>r.value));
+      el.innerHTML=rows.length && rows.some(r=>r.value)?rows.map(r=>'<div class="bar-row" data-tip="'+esc(r.tip || r.label+': '+r.text)+'"><span>'+esc(r.label)+'</span><div class="bar-track"><div class="bar-fill'+(r.quiet?' quiet':'')+'" style="width:'+Math.max(0,100*r.value/max).toFixed(2)+'%"></div></div><span class="num">'+esc(r.text)+'</span></div>').join(''):'<p class="empty">'+esc(empty || 'Nothing to show.')+'</p>';
+    }
+    const niceMax = v => { if (!(v>0)) return 1; const p=10**Math.floor(Math.log10(v)), n=v/p; return (n<=1?1:n<=2?2:n<=5?5:10)*p; };
+    // Grouped columns on one axis; the whole month is the hover target.
+    // An optional `target` draws a dashed horizontal line at that value.
+    function columns(el, groups, names, axis, target) {
+      if (!groups.length || !groups.some(g=>g.values.some(v=>v>0))) { el.innerHTML='<p class="empty">Nothing in this period.</p>'; return; }
+      const max=niceMax(Math.max(...groups.flatMap(g=>g.values),target || 0));
+      el.innerHTML=(names.length>1 || target?'<div class="legend">'+names.map((n,i)=>'<span><i class="sw s'+(i+1)+'"></i>'+esc(n)+'</span>').join('')+(target?'<span><i class="sw target-sw"></i>Target '+esc(axis(target))+'</span>':'')+'</div>':'')+
+        '<div class="colchart"><div class="axis"><span>'+esc(axis(max))+'</span><span>'+esc(axis(max/2))+'</span><span>0</span></div><div class="plot">'+
+        (target?'<div class="target" style="bottom:'+(100*target/max).toFixed(2)+'%"></div>':'')+
+        groups.map(g=>'<div class="col-group" data-tip="'+esc(g.tip)+'">'+g.values.map((v,i)=>'<div class="col s'+(i+1)+'" style="height:'+(100*Math.max(0,v)/max).toFixed(2)+'%"></div>').join('')+'</div>').join('')+
+        '</div><div class="xlabels'+(groups.length>12?' dense':'')+'">'+groups.map(g=>'<span>'+esc(g.label)+'</span>').join('')+'</div></div>';
+    }
+    // Paged tables: first column is clickable when `click` is set; `href` columns link to the ERPNext form.
+    const tables={};
+    function table(key, el, opts) {
+      tables[key]=Object.assign(tables[key] || {p:0}, {page:25,note:''}, opts, {el});
+      // Total rows always sit directly under the header.
+      tables[key].rows=[...opts.rows.filter(r=>r.sub==='total'),...opts.rows.filter(r=>r.sub!=='total')];
+      drawTable(key);
+    }
+    function drawTable(key) {
+      const t=tables[key], pages=Math.max(1,Math.ceil(t.rows.length/t.page)), n=t.rows.filter(r=>!r.sub).length;
+      t.p=Math.min(Math.max(0,t.p),pages-1);
+      if (!t.rows.length) { t.el.innerHTML='<p class="empty">'+esc(t.empty || 'Nothing matches the current filters.')+'</p>'; return; }
+      const shown=t.rows.slice(t.p*t.page,(t.p+1)*t.page);
+      const cell=(c,r,i,j)=>{
+        const raw=c.v(r), text=c.f?c.f(raw,r):raw;
+        let inner=text==null?'—':esc(text);
+        if (j===0 && t.click && r.sub!=='total' && !r.noclick && text!=null && text!=='') inner='<button class="link" data-table="'+key+'" data-row="'+(t.p*t.page+i)+'">'+inner+'</button>';
+        else if (c.href) inner='<a target="_blank" rel="noopener" href="'+esc(c.href(r))+'">'+inner+'</a>';
+        const cls=c.num?'num':[j===0 && r.indent?'indent':'',c.clip?'clip':''].filter(Boolean).join(' ');
+        return '<td'+(cls?' class="'+cls+'"':'')+(c.clip && text?' title="'+esc(text)+'"':'')+'>'+inner+'</td>';
+      };
+      const cols=t.cols.filter(c=>!c.export);
+      t.el.innerHTML='<div class="table-scroll"><table><thead><tr>'+cols.map(c=>'<th'+(c.num?' class="num"':'')+'>'+esc(c.h)+'</th>').join('')+'</tr></thead><tbody>'+
+        shown.map((r,i)=>'<tr'+(r.sub?' class="'+(r.sub==='total'?'total':'sub')+'"':'')+'>'+cols.map((c,j)=>cell(c,r,i,j)).join('')+'</tr>').join('')+'</tbody></table></div>'+
+        (pages>1?'<div class="pager"><span>'+count(n,'row','rows')+(t.note?' · '+esc(t.note):'')+'</span><button data-page="'+key+'" data-dir="-1"'+(t.p===0?' disabled':'')+'>Previous</button><span>Page '+(t.p+1)+' of '+pages+'</span><button data-page="'+key+'" data-dir="1"'+(t.p===pages-1?' disabled':'')+'>Next</button></div>':'<p class="muted foot">'+count(n,'row','rows')+(t.note?' · '+esc(t.note):'')+'</p>');
+    }
+    function exportTable(key) {
+      const t=tables[key]; if (!t || !t.rows.length) return;
+      const cell=v=>'"'+String(v ?? '').replace(/^[=+@\-\t\r]/,"'$&").replace(/"/g,'""')+'"';
+      const lines=[t.cols.map(c=>cell(c.h)),...t.rows.map(r=>t.cols.map(c=>cell(c.v(r))))].map(r=>r.join(','));
+      const blob=new Blob(['﻿'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'});
+      const url=URL.createObjectURL(blob), a=document.createElement('a');
+      a.href=url; a.download=t.file+'-'+($('from').value || 'all')+'-'+($('to').value || 'dates')+'.csv'; a.click();
+      setTimeout(()=>URL.revokeObjectURL(url),1000);
+    }
+    function options(sel, items, allLabel) {
+      const previous=sel.value, seen=new Map(); items.forEach(i=>seen.set(i.key,i.label));
+      sel.innerHTML='<option value="">'+esc(allLabel)+'</option>'+[...seen].sort((a,b)=>a[1].localeCompare(b[1])).map(([k,l])=>'<option value="'+esc(k)+'">'+esc(l)+'</option>').join('');
+      if ([...sel.options].some(o=>o.value===previous)) sel.value=previous;
+    }
+    // Actual item names under their material group; "All <group>" filters the whole group.
+    function materialOptions(sel, items) {
+      const previous=sel.value, seen=new Map(); items.forEach(i=>seen.set(i.key,i));
+      const all=[...seen.values()].sort((a,b)=>a.label.localeCompare(b.label));
+      sel.innerHTML='<option value="">All materials</option>'+GROUPS.map(g=>{
+        const xs=all.filter(i=>i.cat===g);
+        return xs.length?'<optgroup label="'+g+'"><option value="cat:'+g+'">All '+g+'</option>'+xs.map(i=>'<option value="'+esc(i.key)+'">'+esc(i.label)+'</option>').join('')+'</optgroup>':'';
+      }).join('');
+      if ([...sel.options].some(o=>o.value===previous)) sel.value=previous;
+    }
+    const materialMatch = (value, item, cat) => !value || (value.startsWith('cat:')?cat===value.slice(4):item===value);
+    const inDates = date => (!$('from').value || (date && date>=$('from').value)) && (!$('to').value || (date && date<=$('to').value));
+
+    /* ---------- Sales & purchases ---------- */
+    const TRADE={
+      sales:{title:'Sales',sub:'Sales invoices and sales orders · values in ₹, net of tax',party:'customer',partyName:'customer_name',partyLabel:'Customer',inv:'Sales Invoice',ord:'Sales Order',ordDue:'delivery_date',done:'delivered_qty',open:['To Deliver and Bill','To Deliver'],pend:'to deliver',out:'Receivables',short:'SO',doneWord:'Delivered',ageDays:[5,10,20]},
+      purchases:{title:'Purchases',sub:'Purchase invoices and purchase orders · values in ₹, net of tax',party:'supplier',partyName:'supplier_name',partyLabel:'Supplier',inv:'Purchase Invoice',ord:'Purchase Order',ordDue:'schedule_date',done:'received_qty',open:['To Receive and Bill','To Receive'],pend:'to receive',out:'Payables',short:'PO',doneWord:'Received',ageDays:[30,60,90]}
+    };
+    const VIEWS={sales:TRADE.sales,purchases:TRADE.purchases,weighments:{title:'Weighments',sub:'Weighbridge turnaround and tonnage · all movements'},production:{title:'Production',sub:'DRI kilns · output, yield, grade and specific consumption'}};
+    const data={};
+    const rangeKey = () => $('from').value+'|'+$('to').value;
+
+    function tradeSkeleton(k) {
+      const c=TRADE[k], p=c.partyLabel.toLowerCase();
+      return '<div id="wd-'+k+'-cards" class="cards"></div>'+
+        '<div class="charts"><section><h2>Monthly value</h2><p class="muted">Invoiced vs ordered · net of tax · by posting / order date</p><div id="wd-'+k+'-trend"></div></section>'+
+        '<section><h2>'+c.out+' ageing</h2><p class="muted">Outstanding today on all '+c.inv.toLowerCase()+'s · days past due date</p><div id="wd-'+k+'-ageing"></div></section></div>'+
+        // Wide screens pair tables two to a row: Sales puts pending SO beside receivables; Purchases keeps the wider pending PO full width.
+        (k==='sales'
+          ?'<div class="pair">'+'<section><div class="section-head"><h2>Pending '+c.short+' summary'+(k==='sales'?' · '+PENDING_SO_ITEMS.join(', '):'')+' · MT</h2><div class="tools">'+(k==='purchases'?'<label class="check"><input type="checkbox" id="wd-purchases-rawonly" checked>Raw Material items only</label>':'')+(k==='purchases'?'<select id="wd-'+k+'-pendby" aria-label="Summarise by"><option value="both">'+c.partyLabel+' × item</option><option value="party">'+c.partyLabel+'</option><option value="item">Item</option></select>':'')+'<button data-export="'+k+'-pending">Export CSV</button></div></div><p class="muted">Open '+c.ord.toLowerCase()+'s'+(k==='sales'?' for item '+PENDING_SO_ITEMS.join(', '):'')+', any date · ordered vs '+c.doneWord.toLowerCase()+' vs pending (MT; oldest order date, earliest due date) · '+(k==='sales'?'by customer, highest pending value first. Click a customer to filter.':'grouped by material with subtotals · highest pending value first. Click a material group to filter.')+'</p><div id="wd-'+k+'-pending-table"></div></section>'+'<section><div class="section-head"><h2>'+c.out+' summary · ₹ Cr</h2><button data-export="'+k+'-ageing-table">Export CSV</button></div><p class="muted">Outstanding today by '+p+', any date · ₹ crore by days past due date · largest first · '+(c.partyLabel+'s').toLowerCase()+' with under '+MIN_OUT_LABEL+' outstanding are hidden (count and amount shown below the table). Click a '+p+' to filter.</p><div id="wd-'+k+'-ageing-table"></div></section>'+'</div>'+'<section><div class="section-head"><h2>By '+p+' · ₹ Cr</h2><button data-export="'+k+'-party">Export CSV</button></div><p class="muted">Top '+TOP_N+' by invoiced value (₹ crore, net of tax; MT invoiced); Total covers all. Click a '+p+' to filter the page. Outstanding ignores the date and material filters.</p><div id="wd-'+k+'-party-table"></div></section>'
+          :'<section><div class="section-head"><h2>Pending '+c.short+' summary'+(k==='sales'?' · '+PENDING_SO_ITEMS.join(', '):'')+' · MT</h2><div class="tools">'+(k==='purchases'?'<label class="check"><input type="checkbox" id="wd-purchases-rawonly" checked>Raw Material items only</label>':'')+(k==='purchases'?'<select id="wd-'+k+'-pendby" aria-label="Summarise by"><option value="both">'+c.partyLabel+' × item</option><option value="party">'+c.partyLabel+'</option><option value="item">Item</option></select>':'')+'<button data-export="'+k+'-pending">Export CSV</button></div></div><p class="muted">Open '+c.ord.toLowerCase()+'s'+(k==='sales'?' for item '+PENDING_SO_ITEMS.join(', '):'')+', any date · ordered vs '+c.doneWord.toLowerCase()+' vs pending (MT; oldest order date, earliest due date) · '+(k==='sales'?'by customer, highest pending value first. Click a customer to filter.':'grouped by material with subtotals · highest pending value first. Click a material group to filter.')+'</p><div id="wd-'+k+'-pending-table"></div></section>'+'<div class="pair">'+'<section><div class="section-head"><h2>By '+p+' · ₹ Cr</h2><button data-export="'+k+'-party">Export CSV</button></div><p class="muted">Top '+TOP_N+' by invoiced value (₹ crore, net of tax; MT invoiced); Total covers all. Click a '+p+' to filter the page. Outstanding ignores the date and material filters.</p><div id="wd-'+k+'-party-table"></div></section>'+'<section><div class="section-head"><h2>'+c.out+' summary · ₹ Cr</h2><button data-export="'+k+'-ageing-table">Export CSV</button></div><p class="muted">Outstanding today by '+p+', any date · ₹ crore by days past due date · largest first · '+(c.partyLabel+'s').toLowerCase()+' with under '+MIN_OUT_LABEL+' outstanding are hidden (count and amount shown below the table). Click a '+p+' to filter.</p><div id="wd-'+k+'-ageing-table"></div></section>'+'</div>')+
+        '<details><summary>About these figures</summary><p>Only submitted documents of at least ₹'+fmt(MIN_DOC_VALUE,0)+' net count; smaller documents, returns, drafts and cancelled documents are not loaded. Outstanding still covers every invoice. Invoiced and ordered values are item net amounts in company currency, before taxes; returns and debit/credit notes reduce them. Dates filter invoice posting date and order date.</p>'+
+        '<p>MT is converted from each line\'s stock quantity and stock UOM (Kg ÷ 1000, Quintal ÷ 10, MT/Tonne as is). Lines in other UOMs are left out of tonnage and average rate. Pending quantity is ordered minus '+(k==='sales'?'delivered':'received')+' on open orders.</p>'+
+        '<p>Outstanding and ageing use today\'s outstanding amount on every submitted invoice, regardless of date or material; days overdue count from the due date (posting date if none). Credit notes and advances (negative outstanding) reduce the outstanding total but are not counted as overdue. Material groups come from the item name containing SPONGE, PELLET, COAL or TMT, then the item group; anything else is OTHER.</p></details>';
+    }
+
+    // "Raw Material" and every sub-group under it in the Item Group tree; falls back to a name match if the tree can't be read.
+    const RAW_GROUP='Raw Material';
+    // Pending SO summary shows only these item codes.
+    // Codes are compared ignoring case, spaces and leading zeros, so FG-001, FG-0001 and fg-1 all match.
+    const itemKey = v => String(v || '').toUpperCase().replace(/\s+/g,'').replace(/\d+/g,d=>String(+d));
+    const PENDING_SO_ITEMS=['FG-0001'], PENDING_SO_KEYS=new Set(PENDING_SO_ITEMS.map(itemKey));
+    // Receivables / payables summary lists only parties with at least this much outstanding (either way); the rest are hidden.
+    const MIN_OUTSTANDING=1000000, MIN_OUT_LABEL='₹'+fmt(MIN_OUTSTANDING/1e5,0)+' L';
+    // Performance tables list only the largest rows.
+    const TOP_N=20;
+    // Invoices and orders below this net value (₹, before tax) are not loaded at all, to keep requests small. Returns are skipped too.
+    const MIN_DOC_VALUE=50000;
+    async function rawMaterialGroups() {
+      try {
+        const top=await list('Item Group',['name','lft','rgt'],[['name','=',RAW_GROUP]]);
+        if (!top.length) return null;
+        const groups=await list('Item Group',['name'],[['lft','>=',top[0].lft],['rgt','<=',top[0].rgt]]);
+        return new Set(groups.map(g=>g.name));
+      } catch (e) { return null; }
+    }
+
+    // Ageing buckets from upper day limits, e.g. [5,10,20] → Not due, 1–5, 6–10, 11–20, > 20 days past due.
+    function ageBuckets(limits) {
+      const b=[['Not due',r=>r.overdue<=0]];
+      limits.forEach((hi,i)=>{ const lo=(i?limits[i-1]:0)+1; b.push([lo+'–'+hi,r=>r.overdue>=lo && r.overdue<=hi]); });
+      const last=limits[limits.length-1];
+      b.push(['> '+last,r=>r.overdue>last]);
+      return b;
+    }
+
+    async function loadTrade(k) {
+      const c=TRADE[k], from=$('from').value, to=$('to').value, range=rangeKey();
+      const dates=f=>[...(from?[[f,'>=',from]]:[]),...(to?[[f,'<=',to]]:[])];
+      const pf=[c.party,c.partyName,'company'], step=t=>msg('Loading '+c.title.toLowerCase()+' · '+t);
+      const inv=await list(c.inv,['name','posting_date','is_return',...pf],[['docstatus','=',1],['base_net_total','>=',MIN_DOC_VALUE],...dates('posting_date')],null,n=>step(n+' invoices'));
+      const ordFields=['name','transaction_date','status',c.ordDue,...pf];
+      const booked=await list(c.ord,ordFields,[['docstatus','=',1],['base_net_total','>=',MIN_DOC_VALUE],...dates('transaction_date')],null,n=>step(n+' orders'));
+      const open=await list(c.ord,ordFields,[['docstatus','=',1],['base_net_total','>=',MIN_DOC_VALUE],['status','in',c.open]],null,n=>step(n+' open orders'));
+      const out=await list(c.inv,['name','posting_date','due_date','outstanding_amount',...pf],[['docstatus','=',1],['outstanding_amount','!=',0]],null,n=>step(n+' outstanding invoices'));
+      const orders=new Map();
+      booked.forEach(o=>orders.set(o.name,{...o,inRange:true,open:false}));
+      open.forEach(o=>{ const x=orders.get(o.name) || {...o,inRange:false}; x.open=true; orders.set(o.name,x); });
+      const itemFields=['name','parent','item_code','item_name','item_group','stock_qty','stock_uom','base_net_amount'];
+      const invItems=await children(c.inv+' Item',c.inv,itemFields,inv.map(r=>r.name),(d,t)=>step('invoice items '+d+'/'+t));
+      const ordItems=await children(c.ord+' Item',c.ord,[...itemFields,'qty',c.done,'conversion_factor','base_net_rate'],[...orders.keys()],(d,t)=>step('order items '+d+'/'+t));
+
+      const rawGroups=k==='purchases'?await rawMaterialGroups():null;
+      const isRaw=g=>rawGroups?rawGroups.has(g):/raw material/i.test(g);
+      const party=r=>({party:String(r[c.party] || '(Unassigned)'),partyName:String(r[c.partyName] || r[c.party] || '(Unassigned)'),company:String(r.company || '')});
+      const item=i=>({item:String(i.item_code || '(No item)'),itemName:String(i.item_name || i.item_code || '(No item)'),category:itemCategory(i.item_name || i.item_code,i.item_group),itemGroup:String(i.item_group || ''),raw:isRaw(String(i.item_group || '')),mt:toMT(i.stock_qty,i.stock_uom),amount:numeric(i.base_net_amount) || 0});
+      const heads=new Map(inv.map(r=>[r.name,r]));
+      const invLines=invItems.filter(i=>heads.has(i.parent)).map(i=>{ const h=heads.get(i.parent); return {doc:h.name,date:h.posting_date,isReturn:!!+h.is_return,...party(h),...item(i)}; });
+      const ordLines=ordItems.filter(i=>orders.has(i.parent)).map(i=>{
+        const h=orders.get(i.parent), qty=numeric(i.qty) || 0, done=numeric(i[c.done]) || 0, cf=numeric(i.conversion_factor) || 1;
+        const pending=h.open?Math.max(0,qty-done):0;
+        return {doc:h.name,date:h.transaction_date,due:h[c.ordDue] || '',status:h.status,inRange:h.inRange,open:h.open,...party(h),...item(i),
+          doneMT:toMT(Math.min(done,qty)*cf,i.stock_uom),pendMT:pending?toMT(pending*cf,i.stock_uom):0,pendValue:pending*(numeric(i.base_net_rate) || 0)};
+      });
+      const outstanding=out.map(r=>{ const due=r.due_date || r.posting_date; return {doc:r.name,date:r.posting_date,due,...party(r),amount:numeric(r.outstanding_amount) || 0,overdue:due?daysBetween(due,today):0}; });
+
+      const all=[...invLines,...ordLines,...outstanding];
+      options($(k+'-party'),all.map(r=>({key:r.party,label:r.partyName})),'All '+c.partyLabel.toLowerCase()+'s');
+      materialOptions($(k+'-item'),[...invLines,...ordLines].map(r=>({key:r.item,label:r.itemName,cat:r.category})));
+      return {range,inv:invLines,ord:ordLines,out:outstanding,companies:new Set(all.map(r=>r.company).filter(Boolean)),
+        message:count(distinct(invLines,r=>r.doc),'invoice','invoices')+' and '+count(booked.length,'order','orders')+' in range · '+count(outstanding.length,'outstanding invoice','outstanding invoices')+' · under '+inr(MIN_DOC_VALUE)+' skipped · updated '+stamp()+' ('+zone+')'};
+    }
+
+    function renderTrade(k) {
+      const c=TRADE[k], d=data[k], co=$('company').value, pv=$(k+'-party').value, mv=$(k+'-item').value;
+      const pick=(rows,material=true)=>rows.filter(r=>(!co || r.company===co) && (!pv || r.party===pv) && (!material || materialMatch(mv,r.item,r.category)));
+      const inv=pick(d.inv), ord=pick(d.ord), booked=ord.filter(r=>r.inRange), open=ord.filter(r=>r.open && (r.pendValue>0 || r.pendMT>0)), out=pick(d.out,false);
+      const weighed=inv.filter(r=>r.mt!=null), mt=sum(weighed,r=>r.mt), rate=mt>0?sum(weighed,r=>r.amount)/mt:null;
+      const returns=distinct(inv.filter(r=>r.isReturn),r=>r.doc), nonWeight=inv.length-weighed.length;
+      const outTotal=sum(out,r=>r.amount), overdue=out.filter(r=>r.overdue>0 && r.amount>0), overdueTotal=sum(overdue,r=>r.amount);
+      const oldest=overdue.reduce((m,r)=>Math.max(m,r.overdue),0);
+      cards($(k+'-cards'),[
+        ['Invoiced value',inr(sum(inv,r=>r.amount)),'Net of tax · '+count(distinct(inv,r=>r.doc),'invoice','invoices')+(returns?' incl. '+count(returns,'return','returns'):'')],
+        ['Invoiced quantity',fmt(mt,1)+' MT',nonWeight?count(nonWeight,'line','lines')+' in other UOMs excluded':'All lines in weight UOMs'],
+        ['Average rate',rate==null?'—':'₹'+fmt(rate,0)+'/MT','Net value ÷ MT'],
+        ['Orders booked',inr(sum(booked,r=>r.amount)),fmt(sum(booked,r=>r.mt),1)+' MT · '+count(distinct(booked,r=>r.doc),'order','orders')],
+        ['Pending '+c.pend,fmt(sum(open,r=>r.pendMT),1)+' MT',inr(sum(open,r=>r.pendValue))+' · '+count(distinct(open,r=>r.doc),'open order','open orders')],
+        [c.out+' outstanding',inr(outTotal),count(out.length,'invoice','invoices')+' · all dates'],
+        ['Overdue',inr(overdueTotal),(owed=>owed>0?fmt(100*overdueTotal/owed,0)+'% of '+inr(owed)+' owed':'Nothing outstanding')(sum(out,r=>Math.max(0,r.amount)))],
+        ['Oldest overdue',overdue.length?count(oldest,'day','days'):'—',overdue.length?count(overdue.length,'invoice','invoices')+' past due':'No overdue invoices']
+      ]);
+
+      const months=monthKeys($('from').value,$('to').value,[...inv,...booked].map(r=>r.date));
+      const byMonth=rows=>{ const m=new Map(); rows.forEach(r=>{ const key=String(r.date || '').slice(0,7); m.set(key,(m.get(key) || 0)+r.amount); }); return m; };
+      const iv=byMonth(inv), ov=byMonth(booked);
+      columns($(k+'-trend'),months.map(m=>{ const a=iv.get(m) || 0, b=ov.get(m) || 0; return {label:monthLabel(m),values:[a,b],tip:monthLabel(m)+' · Invoiced '+inr(a)+' · Ordered '+inr(b)}; }),['Invoiced','Ordered'],inr);
+
+      const AGE=ageBuckets(c.ageDays);
+      hbars($(k+'-ageing'),AGE.map(([h,f],i)=>{ const label=i?h+' days':'Not yet due'; return [label,f]; }).map(([label,f],i)=>{ const rs=out.filter(f), v=sum(rs,r=>r.amount); return {label,value:Math.max(0,v),text:inr(v),quiet:i===0,tip:label+': '+inr(v)+' · '+count(rs.length,'invoice','invoices')}; }),'Nothing outstanding.');
+
+      // By party
+      const parties=new Map(), P=r=>{ let p=parties.get(r.party); if (!p) parties.set(r.party,p={key:r.party,name:r.partyName,inv:0,mt:0,wv:0,ord:0,pendMT:0,out:0,overdue:0}); return p; };
+      inv.forEach(r=>{ const p=P(r); p.inv+=r.amount; if (r.mt!=null) { p.mt+=r.mt; p.wv+=r.amount; } });
+      booked.forEach(r=>{ P(r).ord+=r.amount; });
+      open.forEach(r=>{ P(r).pendMT+=r.pendMT || 0; });
+      out.forEach(r=>{ const p=P(r); p.out+=r.amount; if (r.overdue>0 && r.amount>0) p.overdue+=r.amount; });
+      const Cr=v=>fmt(Math.abs(v)<.005?0:v,2), crore=f=>r=>f(r)/1e7;
+      table(k+'-party',$(k+'-party-table'),{file:k+'-by-'+c.partyLabel.toLowerCase(),
+        rows:(()=>{
+          const all=[...parties.values()].sort((a,b)=>b.inv-a.inv || b.out-a.out || a.name.localeCompare(b.name));
+          const sumP=(list,extra)=>({...extra,inv:sum(list,p=>p.inv),mt:sum(list,p=>p.mt),wv:sum(list,p=>p.wv),ord:sum(list,p=>p.ord),pendMT:sum(list,p=>p.pendMT),out:sum(list,p=>p.out),overdue:sum(list,p=>p.overdue)});
+          return [...all.slice(0,TOP_N),...(all.length?[sumP(all,{sub:'total',name:'Total'})]:[])];
+        })(),
+        click:r=>setFilter(k+'-party',r.key),
+        cols:[{h:c.partyLabel,v:r=>r.name,clip:1},{h:'Invoiced',v:crore(r=>r.inv),f:Cr,num:1},{h:'MT',v:r=>r.mt,f:v=>fmt(v,1),num:1},{h:'₹/MT',v:r=>r.mt>0?r.wv/r.mt:null,f:v=>fmt(v,0),num:1},
+          {h:'Ordered',v:crore(r=>r.ord),f:Cr,num:1},{h:'Pending MT',v:r=>r.pendMT,f:v=>fmt(v,1),num:1},{h:'Outstanding',v:crore(r=>r.out),f:Cr,num:1},{h:'Overdue',v:crore(r=>r.overdue),f:Cr,num:1}]});
+
+      // Pending order summary (purchases can be limited to the Raw Material item group)
+      const pendingLines=k==='sales'?open.filter(r=>PENDING_SO_KEYS.has(itemKey(r.item)) || PENDING_SO_KEYS.has(itemKey(r.itemName))):$('purchases-rawonly').checked?open.filter(r=>r.raw):open;
+      // Sales covers a single item, so it is listed by customer without material subtotals.
+      const grouped=k==='purchases', by=grouped?$(k+'-pendby').value:'party', pend=new Map();
+      const blank=()=>({itemName:'',itemGroup:'',docs:new Set(),oldest:'',due:'',ordMT:0,doneMT:0,pendMT:0,lateMT:0,pendValue:0});
+      const add=(g,r)=>{
+        g.docs.add(r.doc);
+        if (!g.oldest || r.date<g.oldest) g.oldest=r.date;
+        if (r.due && (!g.due || r.due<g.due)) g.due=r.due;
+        g.ordMT+=r.mt || 0; g.doneMT+=r.doneMT || 0; g.pendMT+=r.pendMT || 0; g.pendValue+=r.pendValue;
+        if (r.due && r.due<today) g.lateMT+=r.pendMT || 0;
+      };
+      pendingLines.forEach(r=>{
+        const gk=grouped?r.category:'';
+        let grp=pend.get(gk);
+        if (!grp) pend.set(gk,grp={...blank(),sub:'group',category:r.category,partyName:'Subtotal',rows:new Map()});
+        const key=by==='party'?r.party:by==='item'?r.item:r.party+'\u0000'+r.item;
+        let g=grp.rows.get(key);
+        if (!g) grp.rows.set(key,g={...blank(),category:r.category,party:r.party,partyName:r.partyName,item:r.item,itemName:r.itemName,itemGroup:r.itemGroup});
+        add(g,r); add(grp,r);
+      });
+      const total={...blank(),sub:'total',category:'Total',partyName:grouped?'':'Total'};
+      pendingLines.forEach(r=>add(total,r));
+      const byValue=(a,b)=>b.pendValue-a.pendValue || b.pendMT-a.pendMT;
+      const pendRows=[...pend.values()].sort(byValue).flatMap(g=>grouped?[g,...[...g.rows.values()].sort(byValue)]:[...g.rows.values()].sort(byValue));
+      if (pendRows.length) pendRows.push(total);
+      const otherOpen=distinct(open,r=>r.doc);
+      const openItems=[...new Map(open.map(r=>[r.item,r.item===r.itemName?r.item:r.item+' ('+r.itemName+')'])).values()];
+      table(k+'-pending',$(k+'-pending-table'),{empty:pendingLines.length?null:(k==='sales'?'No open sales order lines for '+PENDING_SO_ITEMS.join(', ')+'. '+count(otherOpen,'open sales order','open sales orders')+' with other items match the current filters. Item codes on those orders: '+openItems.slice(0,15).join(', ')+(openItems.length>15?' and '+(openItems.length-15)+' more':'')+'.':'No open purchase orders match.'),file:k+'-pending-'+c.short.toLowerCase()+'-summary',page:1e6,rows:pendRows,
+        click:g=>grouped?(g.sub==='group'?setFilter(k+'-item','cat:'+g.category):null):setFilter(k+'-party',g.party),
+        cols:[...(grouped?[{h:'Material group',v:g=>g.category,f:(v,g)=>g.sub?v:''}]:[]),
+          ...(by!=='item'?[{h:c.partyLabel,v:g=>g.partyName,clip:1}]:[]),...(by!=='party'?[{h:'Item',v:g=>g.itemName}]:[]),
+          {h:'Oldest',v:g=>g.oldest},{h:'Due',v:g=>g.due},
+          {h:'Ordered',v:g=>g.ordMT,f:v=>fmt(v,1),num:1},{h:c.doneWord,v:g=>g.doneMT,f:v=>fmt(v,1),num:1},{h:'Pending',v:g=>g.pendMT,f:v=>fmt(v,1),num:1},
+          {h:'Overdue',v:g=>g.lateMT,f:v=>fmt(v,1),num:1},{h:'Pending ₹ Cr',v:crore(g=>g.pendValue),f:Cr,num:1}]});
+
+      // Receivables / payables summary by party with ageing buckets
+      const ageRow=(rs,extra)=>({...extra,n:rs.length,amount:sum(rs,r=>r.amount),buckets:AGE.map(([,f])=>sum(rs.filter(f),r=>r.amount)),oldest:rs.filter(r=>r.overdue>0 && r.amount>0).reduce((m,r)=>Math.max(m,r.overdue),0)});
+      const owed=new Map(); out.forEach(r=>{ if (!owed.has(r.party)) owed.set(r.party,[]); owed.get(r.party).push(r); });
+      const owedBy=[...owed].map(([key,rs])=>({rs,row:ageRow(rs,{key,name:rs[0].partyName})}));
+      const small=owedBy.filter(p=>Math.abs(p.row.amount)<MIN_OUTSTANDING), listed=owedBy.filter(p=>Math.abs(p.row.amount)>=MIN_OUTSTANDING);
+      const ageRows=listed.map(p=>p.row).sort((a,b)=>b.amount-a.amount);
+      if (listed.length) ageRows.push(ageRow(listed.flatMap(p=>p.rs),{sub:'total',name:'Total'}));
+      table(k+'-ageing-table',$(k+'-ageing-table'),{file:k+'-'+c.out.toLowerCase()+'-summary',
+        note:small.length?count(small.length,c.partyLabel.toLowerCase(),c.partyLabel.toLowerCase()+'s')+' under '+MIN_OUT_LABEL+' hidden ('+inr(sum(small,p=>p.row.amount))+')':'',
+        empty:small.length?'Nothing to list: '+count(small.length,c.partyLabel.toLowerCase(),c.partyLabel.toLowerCase()+'s')+' with outstanding, each under '+MIN_OUT_LABEL+' ('+inr(sum(small,p=>p.row.amount))+' in total).':null,
+        click:r=>r.sub?null:setFilter(k+'-party',r.key),
+        rows:ageRows,
+        cols:[{h:c.partyLabel,v:r=>r.name,clip:1},{h:'Invoices',v:r=>r.n,f:v=>fmt(v,0),num:1},{h:'Outstanding',v:crore(r=>r.amount),f:Cr,num:1},
+          ...AGE.map(([h],i)=>({h,v:r=>r.buckets[i]/1e7,f:Cr,num:1})),{h:'Oldest (days)',v:r=>r.oldest || null,f:v=>v==null?'':fmt(v,0),num:1}]});
+    }
+
+    /* ---------- Weighments ---------- */
+    const W_DOCTYPE='Weighments', KG_PER_MT=1000;
+    // The daily summary's day runs from this hour to the same hour next day (6 am – 6 am).
+    const DAY_START_HOUR=6;
+    const addDay = d => new Date(Date.parse(d)+864e5).toISOString().slice(0,10);
+    function weighSkeleton() {
+      return '<div id="wd-w-cards" class="cards"></div>'+
+        '<div class="charts"><section><h2>Monthly weighments</h2><p class="muted">Truck count by first weighing date</p><div id="wd-w-trend"></div></section>'+
+        '<section><h2>TAT distribution</h2><p class="muted">Completed weighments with valid timings</p><div id="wd-w-distribution"></div></section></div>'+
+        '<section><div class="section-head"><h2>Daily inward &amp; outward summary</h2></div><p class="muted"><span id="wd-w-window"></span> by second weighing time · a truck counts when its second weighing is done, whenever it arrived · inward by material then party, outward by party · net MT, largest first · Party and Material filters apply.</p>'+
+          '<div class="pair"><div><div class="section-head"><h3>Inward</h3><button data-export="w-inward">Export CSV</button></div><div id="wd-w-inward"></div></div><div><div class="section-head"><h3>Outward</h3><button data-export="w-outward">Export CSV</button></div><div id="wd-w-outward"></div></div></div></section>'+
+        '<section><div class="section-head"><h2 id="wd-w-summary-title">Party performance</h2><div class="tools"><select id="wd-w-group" aria-label="Group by"><option value="supplier">By party</option><option value="movement">By movement</option><option value="material">By material</option><option value="category">By material group</option></select><button data-export="w-summary">Export CSV</button></div></div><p class="muted">Top '+TOP_N+' by weighments; Total covers all. Click a row to filter.</p><div id="wd-w-summary"></div></section>'+
+        '<details><summary>About these figures</summary><p>TAT is the elapsed time between first and second weighing. Missing timestamps are shown as TAT unavailable; weights remain included. Timestamp order is preserved and negative durations are excluded. Net weight uses the recorded net value, or gross minus tare when net is missing or zero and both weights are positive. Weights are stored in KG and displayed in MT (÷ 1000). Pending trucks carry no weight until the second weighing.</p>'+
+        '<p>Weighments whose first weighing falls between From and To load, for every movement type; the daily summary separately reads trucks whose second weighing falls between 6 am yesterday and 6 am today, whenever they were first weighed; cancelled records are excluded. Dates filter first weighing, falling back to record creation where first weighing cannot be read. Pending age is measured at refresh. P90 uses linear interpolation. Materials are grouped as SPONGE, PELLET, COAL or TMT when the name contains that word; anything else is OTHER.</p></details>';
+    }
+    function prepare(r) {
+      const first=time(r.first_weight_time), second=time(r.second_weight_time);
+      const hasFirst=!!String(r.first_weight_time || '').trim(), hasSecond=!!String(r.second_weight_time || '').trim();
+      const issue=(hasFirst && first==null)||(hasSecond && second==null)||(first!=null && second!=null && second<first);
+      const tat=!issue && first!=null && second!=null?(second-first)/60000:null;
+      const status=tat!=null?'Completed':!hasSecond && first!=null?'Pending':'TAT unavailable';
+      let weight=numeric(r.net_weight), weightSource='Recorded net';
+      // A pending truck has no net weight yet; its 0 default must not count as a weighed truck.
+      if(status==='Pending') { weight=null; weightSource='Awaiting second weighing'; }
+      else if(weight==null || weight<=0) {
+        const gross=numeric(r.gross_weight),tare=numeric(r.tare_weight);
+        weight=gross!=null && tare!=null && gross>0 && tare>0 && gross>=tare?gross-tare:null;
+        if(weight!=null) weightSource='Gross − tare'; else if(numeric(r.net_weight)===0){weight=0;weightSource='Recorded net';} else weightSource='Unavailable';
+      }
+      // Weights are stored in KG; everything downstream is MT.
+      if(weight!=null) weight/=KG_PER_MT;
+      return {...r,status,tat,age:status==='Pending' && snapshot>=first?(snapshot-first)/60000:null,weight,weightSource,timingNote:issue?'Check timestamp format / order':tat==null && status!=='Pending'?'Missing weighing timestamp':'',date:first!=null?new Date(first).toISOString().slice(0,10):String(r.creation || '').slice(0,10),shiftDay:second!=null?new Date(second-DAY_START_HOUR*36e5).toISOString().slice(0,10):'',supplier:String(r.supplier || '(Unassigned)'),movement:String(r.movement || '(Unassigned)'),material:String(r.material || '(Unassigned)'),category:category(r.material)};
+    }
+    function weighStats(rows) {
+      const done=rows.filter(r=>r.tat!=null), times=done.map(r=>r.tat);
+      return {count:rows.length,done:done.length,pending:rows.filter(r=>r.status==='Pending').length,invalid:rows.filter(r=>r.status==='TAT unavailable').length,
+        mt:sum(rows,r=>r.weight), missingWeight:rows.filter(r=>r.weight==null && r.status!=='Pending').length,
+        avg:times.length?times.reduce((a,b)=>a+b,0)/times.length:null,median:quantile(times,.5),p90:quantile(times,.9),
+        min:times.length?times.reduce((a,b)=>Math.min(a,b),Infinity):null,max:times.length?times.reduce((a,b)=>Math.max(a,b),-Infinity):null};
+    }
+    const W_FIELDS=['name','slip_no','truck_no','supplier','material','movement','first_weight_time','second_weight_time','net_weight','gross_weight','tare_weight','creation','docstatus'];
+    // One daily-summary day: trucks whose second weighing falls from 6 am that day to 6 am the next, whenever they were first weighed.
+    async function loadDay(day) {
+      const at=d=>d+' '+String(DAY_START_HOUR).padStart(2,'0')+':00:00';
+      const rows=await list(W_DOCTYPE,W_FIELDS,[['docstatus','!=',2],['second_weight_time','>=',at(day)],['second_weight_time','<',at(addDay(day))]]);
+      return rows.map(prepare).filter(r=>r.shiftDay===day);
+    }
+    async function loadWeighments() {
+      snapshot=wallNow(zone); today=new Date(snapshot).toISOString().slice(0,10);
+      // Only weighments whose first weighing falls in the date range are requested; the daily summary reads its own day by second weighing.
+      const from=$('from').value, to=$('to').value, range=rangeKey(), yday=new Date(Date.parse(today)-864e5).toISOString().slice(0,10);
+      const filters=[['docstatus','!=',2],...(from?[['first_weight_time','>=',from+' 00:00:00']]:[]),...(to?[['first_weight_time','<',addDay(to)+' 00:00:00']]:[])];
+      const records=(await list(W_DOCTYPE,W_FIELDS,filters,null,n=>msg('Loading weighments… '+n+' records read'))).map(prepare);
+      const day=yday, dayRecords=await loadDay(yday);
+      options($('w-movement'),records.map(r=>({key:r.movement,label:r.movement})),'All movements');
+      options($('w-party'),records.map(r=>({key:r.supplier,label:r.supplier})),'All parties');
+      materialOptions($('w-item'),records.map(r=>({key:r.material,label:r.material,cat:r.category})));
+      return {range,records,day,dayRecords,message:count(records.length,'weighment','weighments')+' · updated '+stamp()+' ('+zone+')'};
+    }
+    function renderWeighments() {
+      const mv=$('w-movement').value, pv=$('w-party').value, iv=$('w-item').value;
+      const rows=data.weighments.records.filter(r=>inDates(r.date) && (!mv || r.movement===mv) && (!pv || r.supplier===pv) && materialMatch(iv,r.material,r.category));
+      const s=weighStats(rows), min=v=>v==null?'—':fmt(v)+' min';
+      cards($('w-cards'),[['Weighments',fmt(s.count,0),'One record per truck trip'],['Net weight',fmt(s.mt,3)+' MT',s.missingWeight?count(s.missingWeight,'completed weighment','completed weighments')+' without weight':'Excludes pending trucks'],
+        ['Average TAT',min(s.avg),count(s.done,'completed weighment','completed weighments')+' with valid timings'],['Median TAT',min(s.median),'Typical truck turnaround'],['P90 TAT',min(s.p90),'90th percentile · linear interpolation'],
+        ['Completed',fmt(s.done,0),'Both weighings recorded'],['Pending',fmt(s.pending,0),'Second weighing not yet recorded'],['TAT unavailable',fmt(s.invalid,0),'Missing or unreadable timing pairs']]);
+      const months=monthKeys($('from').value,$('to').value,rows.map(r=>r.date)), per=new Map();
+      rows.forEach(r=>{ const k=String(r.date || '').slice(0,7), m=per.get(k) || {n:0,mt:0}; m.n++; m.mt+=r.weight || 0; per.set(k,m); });
+      columns($('w-trend'),months.map(m=>{ const x=per.get(m) || {n:0,mt:0}; return {label:monthLabel(m),values:[x.n],tip:monthLabel(m)+' · '+count(x.n,'weighment','weighments')+' · '+fmt(x.mt,1)+' MT'}; }),['Weighments'],v=>fmt(v,0));
+      const bins=[['≤ 30 min',0],['30–60 min',0],['60–120 min',0],['120–240 min',0],['> 240 min',0]];
+      rows.filter(r=>r.tat!=null).forEach(r=>bins[r.tat<=30?0:r.tat<=60?1:r.tat<=120?2:r.tat<=240?3:4][1]++);
+      hbars($('w-distribution'),bins.map(([label,n])=>({label,value:n,text:fmt(n,0),tip:label+': '+count(n,'weighment','weighments')})),'No completed weighments.');
+      const field=$('w-group').value, label={supplier:'Party',movement:'Movement',material:'Material',category:'Material group'}[field], groups=new Map();
+      rows.forEach(r=>{ if (!groups.has(r[field])) groups.set(r[field],[]); groups.get(r[field]).push(r); });
+      $('w-summary-title').textContent=label+' performance';
+      table('w-summary',$('w-summary'),{file:'weighments-by-'+field,
+        rows:(()=>{
+          const all=[...groups].map(([name,rs])=>({name,...weighStats(rs)})).sort((a,b)=>b.count-a.count || a.name.localeCompare(b.name));
+          return [...all.slice(0,TOP_N),...(all.length?[{sub:'total',name:'Total',...weighStats(rows)}]:[])];
+        })(),
+        click:g=>setFilter({supplier:'w-party',movement:'w-movement'}[field] || 'w-item',(field==='category'?'cat:':'')+g.name),
+        cols:[{h:label,v:g=>g.name},{h:'Weighments',v:g=>g.count,f:v=>fmt(v,0),num:1},{h:'Completed',v:g=>g.done,f:v=>fmt(v,0),num:1},{h:'Pending',v:g=>g.pending,f:v=>fmt(v,0),num:1},{h:'Net MT',v:g=>g.mt,f:v=>fmt(v,3),num:1},
+          {h:'Avg min',v:g=>g.avg,f:v=>fmt(v),num:1},{h:'Median min',v:g=>g.median,f:v=>fmt(v),num:1},{h:'P90 min',v:g=>g.p90,f:v=>fmt(v),num:1},{h:'Min min',v:g=>g.min,f:v=>fmt(v),num:1},{h:'Max min',v:g=>g.max,f:v=>fmt(v),num:1},{h:'TAT unavailable',v:g=>g.invalid,f:v=>fmt(v,0),num:1}]});
+      // Yesterday 6 am to this morning 6 am, inward and outward side by side; date and movement filters do not apply.
+      const {day,dayRecords}=data.weighments;
+      $('w-window').textContent=day+' '+DAY_START_HOUR+' am to '+addDay(day)+' '+DAY_START_HOUR+' am';
+      const dayRows=dayRecords.filter(r=>(!pv || r.supplier===pv) && materialMatch(iv,r.material,r.category));
+      ['inward','outward'].forEach(m=>{
+        const rs=dayRows.filter(r=>r.movement.trim().toLowerCase()===m), bigger=(a,b)=>b.mt-a.mt || b.count-a.count;
+        const byKey=(list,f)=>{ const g=new Map(); list.forEach(r=>{ const k=f(r); if (!g.has(k)) g.set(k,[]); g.get(k).push(r); }); return [...g.values()]; };
+        const parties=list=>byKey(list,r=>r.supplier).map(x=>({name:x[0].supplier,material:x[0].material,indent:m==='inward',...weighStats(x)})).sort(bigger);
+        // Inward: a heading row per material (with its subtotals) followed by its parties; outward is a single item, so parties only.
+        const out=m==='inward'?byKey(rs,r=>r.material).map(x=>({sub:'group',name:x[0].material,material:x[0].material,...weighStats(x),parties:parties(x)})).sort(bigger).flatMap(g=>[g,...g.parties]):parties(rs);
+        if (out.length) out.push({sub:'total',name:'Total',material:'',...weighStats(rs)});
+        table('w-'+m,$('w-'+m),{file:'weighments-'+m+'-'+day,page:1e6,rows:out,empty:'No '+m+' weighments with a second weighing from '+day+' '+DAY_START_HOUR+' am to '+addDay(day)+' '+DAY_START_HOUR+' am.',
+          cols:[{h:m==='inward'?'Material / party':'Party',v:x=>x.name},...(m==='inward'?[{h:'Material',v:x=>x.material,export:1}]:[]),{h:'Trucks',v:x=>x.count,f:v=>fmt(v,0),num:1},
+            {h:'Net MT',v:x=>x.mt,f:v=>fmt(v,3),num:1},{h:'Avg TAT min',v:x=>x.avg,f:v=>fmt(v),num:1}]});
+      });
+    }
+
+    /* ---------- Production (DRI Production) ---------- */
+    const P_DOCTYPE='DRI Production';
+    // Monthly DRI production target (MT), drawn on the monthly chart.
+    const MONTHLY_TARGET_MT=15000;
+    // Power plant target: average MW generated per day, drawn on the monthly power chart.
+    const AVG_MW_TARGET=14;
+    const P_NUM=['dri_production','cons_pellets','cons_sized_ore','cons_rb2','cons_washed','cons_rom_b','cons_rb1','rb2_fc','dom2_fc','dom1_fc','grade_a_hrs','grade_b_hrs','cons_dolomite','char_generation','mag_recovery_from_char','fe_m','c','s',
+      'power_kwh','power_import_from_grid','dri_power_consumption','pp_power_consumption','power_exported','total_steam','steam_to_turbine','power_factor','power_load_factor','dm_water_production','dm_water_consumption','tg_running_hrs','whrb_running_hrs','dg_running_hrs'];
+    // Lab results and meter factors left blank are stored as 0; they are treated as "not recorded" so they don't drag averages down.
+    const P_QUALITY=['mag_recovery_from_char','fe_m','c','s','power_factor','power_load_factor'];
+    // Coal: RB2 = imported, washed, ROM B + RB1 = domestic. F.C. is weighted by each coal's tonnage.
+    const coalOf = r => (r.cons_rb2 || 0)+(r.cons_washed || 0)+(r.cons_rom_b || 0)+(r.cons_rb1 || 0);
+    const fcOf = r => (r.cons_rb2 || 0)*(r.rb2_fc || 0)+(r.cons_washed || 0)*(r.dom2_fc || 0)+((r.cons_rom_b || 0)+(r.cons_rb1 || 0))*(r.dom1_fc || 0);
+    function prodSkeleton() {
+      // Each row pairs the DRI plant view (left) with its power plant counterpart (right).
+      return '<span class="eyebrow block">DRI PLANT</span><div id="wd-p-cards" class="cards"></div>'+
+        '<span class="eyebrow block">POWER PLANT</span><div id="wd-p-pp-cards" class="cards"></div>'+
+        '<div class="charts even"><section><h2>Monthly DRI production</h2><p class="muted">MT by production date · dashed line is the '+fmt(MONTHLY_TARGET_MT,0)+' MT monthly target · hover for MT/day, % of target and specific coal</p><div id="wd-p-trend"></div></section>'+
+        '<section><h2>Monthly power · daily average</h2><p class="muted">Average MW generated vs imported from grid · dashed line is the '+fmt(AVG_MW_TARGET,0)+' MW target · hover for MWh, aux and SSC</p><div id="wd-p-power"></div></section></div>'+
+        '<div class="charts even"><section><h2>Raw material per MT of DRI</h2><p class="muted">Consumption ÷ DRI produced · hover for total MT</p><div id="wd-p-rm"></div></section>'+
+        '<section><h2>Where the power went</h2><p class="muted">Share of generated + imported MWh · hover for MWh</p><div id="wd-p-use"></div></section></div>'+
+        '<div class="pair"><section><div class="section-head"><h2>Kiln performance</h2><button data-export="p-kiln">Export CSV</button></div><p class="muted">Yields, grade and specific consumption by kiln over the range. Click a kiln to filter.</p><div id="wd-p-kiln-table"></div></section>'+
+        '<section><div class="section-head"><h2>Power plant performance</h2><button data-export="p-pp-kiln">Export CSV</button></div><p class="muted">Generation, auxiliary use, steam and SSC by kiln over the range. Click a kiln to filter.</p><div id="wd-p-pp-kiln"></div></section></div>'+
+        '<div class="pair"><section><div class="section-head"><h2>Campaigns</h2><button data-export="p-camp">Export CSV</button></div><p class="muted">Each kiln campaign within the range, latest first. Days before From are not counted.</p><div id="wd-p-camp"></div></section>'+
+        '<section><div class="section-head"><h2>Power plant by campaign</h2><button data-export="p-pp-camp">Export CSV</button></div><p class="muted">Same campaigns, power plant figures.</p><div id="wd-p-pp-camp"></div></section></div>'+
+        '<details><summary>About these figures</summary><p>Only submitted DRI Production reports with a production date between From and To are loaded; drafts and cancelled reports are left out. MT/day divides by days with a report (plant days when several kilns are shown).</p>'+
+        '<p>Pellet yield = DRI produced on days pellets were charged ÷ pellets consumed; iron ore yield likewise for sized ore (10–40). "A" grade % = A hours ÷ (A + B hours). Specific consumption = consumption ÷ DRI produced; power is DRI power consumption (units) ÷ DRI. Coal is imported (RB2) + washed + domestic (ROM B + RB1); F.C. is weighted by each coal\'s tonnage. Fe(M), C and S are weighted by DRI produced, non-mag by char generated; a blank or zero lab value is treated as not tested. </p>'+
+        '<p>Power plant: average MW = kWh ÷ days ÷ 24 ÷ 1000. Auxiliary consumption = power plant consumption ÷ power generated. SSC = steam to turbine (t) ÷ power generated (MWh). Steam TPH and DM water KL/hr divide totals by days × 24. Power factor and plant load factor are simple averages of the daily values (blank or zero left out); running hours are averages per report. "Other / unaccounted" is generated + imported minus DRI, power plant and export.</p></details>';
+    }
+    async function loadProduction() {
+      const from=$('from').value, to=$('to').value, range=rangeKey();
+      const fields=['name','production_date','kiln_no','campaign_no',...P_NUM];
+      const filters=[['docstatus','=',1],...(from?[['production_date','>=',from]]:[]),...(to?[['production_date','<=',to]]:[])];
+      const rows=(await list(P_DOCTYPE,fields,filters,null,n=>msg('Loading production… '+n+' reports read'))).map(r=>{
+        const x={name:r.name,date:String(r.production_date || '').slice(0,10),kiln:String(r.kiln_no || '(No kiln)'),campaign:String(r.campaign_no ?? '')};
+        P_NUM.forEach(f=>{ x[f]=numeric(r[f]); });
+        P_QUALITY.forEach(f=>{ if (!(x[f]>0)) x[f]=null; });
+        return x;
+      }).filter(r=>r.date);
+      options($('p-kiln'),rows.map(r=>({key:r.kiln,label:r.kiln})),'All kilns');
+      return {range,rows,message:count(rows.length,'production report','production reports')+' (submitted) · updated '+stamp()+' ('+zone+')'};
+    }
+    function prodStats(rs) {
+      const t=f=>sum(rs,f), w=(val,wt)=>{ const xs=rs.filter(r=>val(r)!=null), W=sum(xs,wt); return W>0?sum(xs,r=>(wt(r) || 0)*val(r))/W:null; };
+      const dri=t(r=>r.dri_production), days=distinct(rs,r=>r.date), coal=t(coalOf), pel=t(r=>r.cons_pellets), ore=t(r=>r.cons_sized_ore);
+      const aH=t(r=>r.grade_a_hrs), bH=t(r=>r.grade_b_hrs), per=v=>dri>0?v/dri:null;
+      return {n:rs.length,days,dri,perDay:days?dri/days:null,
+        pelletYield:pel>0?100*t(r=>(r.cons_pellets || 0)>0?r.dri_production:0)/pel:null,
+        oreYield:ore>0?100*t(r=>(r.cons_sized_ore || 0)>0?r.dri_production:0)/ore:null,
+        gradeA:aH+bH>0?100*aH/(aH+bH):null,
+        pel,ore,coal,imported:t(r=>r.cons_rb2),washed:t(r=>r.cons_washed),domestic:t(r=>(r.cons_rom_b || 0)+(r.cons_rb1 || 0)),dolo:t(r=>r.cons_dolomite),char:t(r=>r.char_generation),
+        spIron:per(pel+ore),spCoal:per(coal),spDolo:per(t(r=>r.cons_dolomite)),spPower:per(t(r=>r.dri_power_consumption)),
+        fc:coal>0?t(fcOf)/coal:null,nonMag:w(r=>r.mag_recovery_from_char,r=>r.char_generation),
+        feM:w(r=>r.fe_m,r=>r.dri_production),c:w(r=>r.c,r=>r.dri_production),s:w(r=>r.s,r=>r.dri_production),
+        ...powerStats(rs,days)};
+    }
+    function powerStats(rs, days) {
+      const t=f=>sum(rs,f), avg=f=>{ const v=rs.map(f).filter(x=>x!=null); return v.length?v.reduce((a,b)=>a+b,0)/v.length:null; }, hrs=days*24;
+      const kwh=t(r=>r.power_kwh), imp=t(r=>r.power_import_from_grid), steam=t(r=>r.total_steam), stt=t(r=>r.steam_to_turbine), pp=t(r=>r.pp_power_consumption);
+      return {kwh,imp,driKwh:t(r=>r.dri_power_consumption),ppKwh:pp,exp:t(r=>r.power_exported),steam,stt,
+        avgMW:hrs?kwh/hrs/1000:null,impMW:hrs?imp/hrs/1000:null,steamTPH:hrs?steam/hrs:null,ssc:kwh>0?stt/(kwh/1000):null,aux:kwh>0?100*pp/kwh:null,
+        dmP:hrs?t(r=>r.dm_water_production)/hrs:null,dmC:hrs?t(r=>r.dm_water_consumption)/hrs:null,
+        pf:avg(r=>r.power_factor),plf:avg(r=>r.power_load_factor),tg:avg(r=>r.tg_running_hrs),whrb:avg(r=>r.whrb_running_hrs),dg:avg(r=>r.dg_running_hrs)};
+    }
+    function renderProduction() {
+      const kv=$('p-kiln').value, rows=data.production.rows.filter(r=>!kv || r.kiln===kv);
+      const s=prodStats(rows), pct=v=>v==null?'—':fmt(v,1)+'%', mtmt=v=>v==null?'—':fmt(v,2)+' MT/MT';
+      const byDate=new Map(); rows.forEach(r=>{ if (!byDate.has(r.date)) byDate.set(r.date,[]); byDate.get(r.date).push(r); });
+      const dates=[...byDate.keys()].sort(), last=dates[dates.length-1], lastS=last?prodStats(byDate.get(last)):null;
+      cards($('p-cards'),[
+        ['DRI production',fmt(s.dri,0)+' MT',s.days?fmt(s.perDay,1)+' MT/day · '+count(s.days,'day','days'):'No reports in range'],
+        ['Latest day',lastS?fmt(lastS.dri,0)+' MT':'—',lastS?last+(s.perDay?' · '+(lastS.dri>=s.perDay?'+':'')+fmt(100*(lastS.dri/s.perDay-1),0)+'% vs average':''):'—'],
+        ['Pellet yield',pct(s.pelletYield),'Iron ore 10–40 yield '+pct(s.oreYield)],
+        ['"A" grade',pct(s.gradeA),'Share of A + B grade hours'],
+        ['Sp. coal',mtmt(s.spCoal),'Avg F.C. '+pct(s.fc)],
+        ['Sp. iron / pellets',mtmt(s.spIron),'Sp. dolomite '+(s.spDolo==null?'—':fmt(s.spDolo,3))],
+        ['Sp. power',s.spPower==null?'—':fmt(s.spPower,0)+' units/MT','DRI power consumption ÷ DRI'],
+        ['DRI Fe(M)',pct(s.feM),'C '+(s.c==null?'—':fmt(s.c,2)+'%')+' · S '+(s.s==null?'—':fmt(s.s,3)+'%')]
+      ]);
+
+      const months=monthKeys($('from').value,$('to').value,dates), per=new Map();
+      rows.forEach(r=>{ const k=r.date.slice(0,7); if (!per.has(k)) per.set(k,[]); per.get(k).push(r); });
+      const monthStats=months.map(m=>({m,...prodStats(per.get(m) || [])}));
+      columns($('p-trend'),monthStats.map(x=>({label:monthLabel(x.m),values:[x.dri],tip:monthLabel(x.m)+' · '+fmt(x.dri,0)+' MT · '+fmt(100*x.dri/MONTHLY_TARGET_MT,0)+'% of target · '+(x.days?fmt(x.perDay,1)+' MT/day · sp. coal '+fmt(x.spCoal,2):'no reports')})),['DRI'],v=>fmt(v,0),MONTHLY_TARGET_MT);
+
+      const rm=[['Pellets',s.pel],['Iron ore 10–40',s.ore],['Imported coal',s.imported],['Washed coal',s.washed],['Domestic coal',s.domestic],['Dolomite',s.dolo]];
+      hbars($('p-rm'),s.dri>0?rm.map(([label,mt])=>({label,value:mt/s.dri,text:fmt(mt/s.dri,3),tip:label+': '+fmt(mt,0)+' MT · '+fmt(mt/s.dri,3)+' MT per MT DRI'})):[],'No DRI produced in this range.');
+
+      // Power plant
+      const MWh=v=>fmt(v/1000,0)+' MWh', hr=v=>v==null?'—':fmt(v,1)+' h';
+      cards($('p-pp-cards'),[
+        ['Power generated',s.avgMW==null?'—':fmt(s.avgMW,2)+' MW avg',MWh(s.kwh)+' in range'],
+        ['Grid import',MWh(s.imp),(s.impMW==null?'—':fmt(s.impMW,2))+' MW avg · export '+MWh(s.exp)],
+        ['Auxiliary consumption',pct(s.aux),'Power plant use '+MWh(s.ppKwh)],
+        ['SSC',s.ssc==null?'—':fmt(s.ssc,2)+' t/MWh','Steam to turbine '+fmt(s.stt,0)+' t'],
+        ['Steam generation',s.steamTPH==null?'—':fmt(s.steamTPH,1)+' TPH',fmt(s.steam,0)+' t in range'],
+        ['Plant load factor',s.plf==null?'—':fmt(s.plf,2),'Power factor '+(s.pf==null?'—':fmt(s.pf,2))],
+        ['TG running',s.tg==null?'—':fmt(s.tg,1)+' h/day','WHRB '+hr(s.whrb)+' · DG '+hr(s.dg)],
+        ['DM water used',s.dmC==null?'—':fmt(s.dmC,2)+' KL/hr','Produced '+(s.dmP==null?'—':fmt(s.dmP,2))+' KL/hr']
+      ]);
+      columns($('p-power'),monthStats.map(x=>({label:monthLabel(x.m),values:[x.avgMW || 0,x.impMW || 0],
+        tip:monthLabel(x.m)+' · generated '+(x.avgMW==null?'—':fmt(x.avgMW,2)+' MW avg')+' ('+MWh(x.kwh)+') · import '+(x.impMW==null?'—':fmt(x.impMW,2)+' MW avg')+' · '+(x.avgMW!=null?fmt(100*x.avgMW/AVG_MW_TARGET,0)+'% of target · ':'')+'aux '+pct(x.aux)+' · SSC '+(x.ssc==null?'—':fmt(x.ssc,2))})),['Generated MW','Grid import MW'],v=>fmt(v,0)+' MW',AVG_MW_TARGET);
+      const avail=s.kwh+s.imp, other=Math.max(0,avail-s.driKwh-s.ppKwh-s.exp);
+      hbars($('p-use'),avail>0?[['DRI plant',s.driKwh],['Power plant aux',s.ppKwh],['Export',s.exp],['Other / unaccounted',other,1]].map(([label,v,quiet])=>({label,value:v,quiet,text:fmt(100*v/avail,1)+'%',tip:label+': '+MWh(v)+' · '+fmt(100*v/avail,1)+'% of '+MWh(avail)})):[],'No power recorded in this range.');
+
+      // Kiln and campaign tables share the same columns after their key columns.
+      const statCols=[{h:'Days',v:r=>r.days,f:v=>fmt(v,0),num:1},{h:'DRI MT',v:r=>r.dri,f:v=>fmt(v,0),num:1},{h:'MT/day',v:r=>r.perDay,f:v=>fmt(v,1),num:1},
+        {h:'Pellet yield %',v:r=>r.pelletYield,f:v=>fmt(v,1),num:1},{h:'Ore yield %',v:r=>r.oreYield,f:v=>fmt(v,1),num:1},{h:'"A" grade %',v:r=>r.gradeA,f:v=>fmt(v,1),num:1},
+        {h:'Sp. coal',v:r=>r.spCoal,f:v=>fmt(v,2),num:1},{h:'Sp. iron',v:r=>r.spIron,f:v=>fmt(v,2),num:1},{h:'F.C. %',v:r=>r.fc,f:v=>fmt(v,1),num:1},{h:'Fe(M) %',v:r=>r.feM,f:v=>fmt(v,2),num:1}];
+      const group=(f)=>{ const g=new Map(); rows.forEach(r=>{ const k=f(r); if (!g.has(k)) g.set(k,[]); g.get(k).push(r); }); return [...g.values()]; };
+      const kilns=group(r=>r.kiln).map(rs=>({kiln:rs[0].kiln,...prodStats(rs)})).sort((a,b)=>a.kiln.localeCompare(b.kiln));
+      if (kilns.length>1) kilns.push({sub:'total',kiln:'All kilns',...s});
+      table('p-kiln',$('p-kiln-table'),{file:'production-by-kiln',rows:kilns,click:r=>setFilter('p-kiln',r.kiln),empty:'No production reports in this range.',
+        cols:[{h:'Kiln',v:r=>r.kiln},...statCols]});
+      const camps=group(r=>r.kiln+'\u0000'+r.campaign).map(rs=>{ const ds=rs.map(r=>r.date).sort(); return {kiln:rs[0].kiln,campaign:rs[0].campaign,first:ds[0],last:ds[ds.length-1],...prodStats(rs)}; })
+        .sort((a,b)=>b.last.localeCompare(a.last) || a.kiln.localeCompare(b.kiln));
+      table('p-camp',$('p-camp'),{file:'production-campaigns',rows:camps,empty:'No production reports in this range.',
+        cols:[{h:'Kiln',v:r=>r.kiln},{h:'Campaign',v:r=>r.campaign || '—'},{h:'From',v:r=>r.first},{h:'To',v:r=>r.last},...statCols.filter(c=>c.h!=='Sp. iron' && c.h!=='F.C. %')]});
+
+      const ppCols=[{h:'Days',v:r=>r.days,f:v=>fmt(v,0),num:1},{h:'Avg MW',v:r=>r.avgMW,f:v=>fmt(v,2),num:1},{h:'Import MW',v:r=>r.impMW,f:v=>fmt(v,2),num:1},{h:'Export MWh',v:r=>r.exp/1000,f:v=>fmt(v,0),num:1},
+        {h:'Aux %',v:r=>r.aux,f:v=>fmt(v,1),num:1},{h:'Steam TPH',v:r=>r.steamTPH,f:v=>fmt(v,1),num:1},{h:'SSC t/MWh',v:r=>r.ssc,f:v=>fmt(v,2),num:1},{h:'PLF',v:r=>r.plf,f:v=>fmt(v,2),num:1},{h:'TG h/day',v:r=>r.tg,f:v=>fmt(v,1),num:1}];
+      table('p-pp-kiln',$('p-pp-kiln'),{file:'power-plant-by-kiln',rows:kilns,click:r=>setFilter('p-kiln',r.kiln),empty:'No production reports in this range.',
+        cols:[{h:'Kiln',v:r=>r.kiln},...ppCols]});
+      table('p-pp-camp',$('p-pp-camp'),{file:'power-plant-campaigns',rows:camps,empty:'No production reports in this range.',
+        cols:[{h:'Kiln',v:r=>r.kiln},{h:'Campaign',v:r=>r.campaign || '—'},{h:'From',v:r=>r.first},{h:'To',v:r=>r.last},...ppCols.filter(c=>c.h!=='Export MWh' && c.h!=='TG h/day')]});
+    }
+
+    /* ---------- Views, loading & events ---------- */
+    const LOAD={sales:()=>loadTrade('sales'),purchases:()=>loadTrade('purchases'),weighments:loadWeighments,production:loadProduction};
+    let view='sales', busy=null;
+    const stale = v => !data[v] || (data[v].range!==undefined && data[v].range!==rangeKey());
+    const datesValid = () => !($('from').value && $('to').value && $('from').value>$('to').value);
+    function render(v) {
+      if (v!==view || !data[v]) return;
+      $('view-'+v).hidden=false;
+      if (v==='weighments') renderWeighments(); else if (v==='production') renderProduction(); else renderTrade(v);
+      msg(data[v].message);
+    }
+    function updateCompanies() {
+      const all=new Set(); ['sales','purchases'].forEach(k=>data[k] && data[k].companies.forEach(c=>all.add(c)));
+      options($('company'),[...all].map(c=>({key:c,label:c})),'All companies');
+      $('company-wrap').dataset.many=all.size>1?'1':'';
+      showFilters();
+    }
+    function showFilters() {
+      root.querySelectorAll('[data-for]').forEach(el=>{ el.hidden=!el.dataset.for.split(' ').includes(view) || (el.id==='wd-company-wrap' && !el.dataset.many); });
+    }
+    async function ensure(v, force) {
+      if (!datesValid()) { msg('From date is after To date.'); return; }
+      if (!force && !stale(v)) { render(v); return; }
+      if (busy) { if (busy!==v) msg('Finishing '+VIEWS[busy].title.toLowerCase()+' first…'); return; }
+      busy=v; $('refresh').disabled=true;
+      $('view-'+v).hidden=true;
+      try {
+        msg('Connecting to ERPNext…');
+        await session();
+        data[v]=await LOAD[v]();
+        if (TRADE[v]) updateCompanies();
+        render(v);
+      } catch(e) {
+        data[v]=null;
+        if (view===v) msg(e.message);
+      } finally {
+        busy=null; $('refresh').disabled=false;
+        if (view!==v || (data[v] && stale(v))) ensure(view);
+      }
+    }
+    function setView(v) {
+      // No (or unknown) hash opens the first page in the sidebar.
+      if (!VIEWS[v]) v=root.querySelector('[data-nav]').dataset.nav;
+      view=v;
+      root.querySelectorAll('[data-nav]').forEach(a=>{ const on=a.dataset.nav===v; a.classList.toggle('active',on); if (on) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
+      root.querySelectorAll('[data-view]').forEach(el=>{ el.hidden=el.dataset.view!==v || !data[v]; });
+      $('title').textContent=VIEWS[v].title; $('subtitle').textContent=VIEWS[v].sub;
+      showFilters();
+      ensure(v);
+    }
+    function resetPages() { Object.values(tables).forEach(t=>{ t.p=0; }); }
+    function setFilter(id, value) { $(id).value=value; resetPages(); render(view); }
+
+    $('view-sales').innerHTML=tradeSkeleton('sales');
+    $('view-purchases').innerHTML=tradeSkeleton('purchases');
+    $('view-weighments').innerHTML=weighSkeleton();
+    $('view-production').innerHTML=prodSkeleton();
+    // Default to the current Indian financial year (1 April – 31 March).
+    (() => {
+      const now=new Date(), y=now.getMonth()>=3?now.getFullYear():now.getFullYear()-1;
+      if (!$('from').value) $('from').value=y+'-04-01';
+      if (!$('to').value) $('to').value=(y+1)+'-03-31';
+    })();
+
+    $('refresh').onclick=()=>ensure(view,true);
+    ['from','to'].forEach(k=>$(k).onchange=()=>{ resetPages(); ensure(view); });
+    ['company','sales-party','sales-item','purchases-party','purchases-item','purchases-pendby','purchases-rawonly','w-movement','w-party','w-item','w-group','p-kiln'].forEach(k=>$(k).onchange=()=>{ resetPages(); render(view); });
+    root.addEventListener('click',e=>{
+      const row=e.target.closest('[data-row]');
+      if (row) { const t=tables[row.dataset.table]; t.click(t.rows[+row.dataset.row]); return; }
+      const pg=e.target.closest('[data-page]');
+      if (pg) { tables[pg.dataset.page].p+=+pg.dataset.dir; drawTable(pg.dataset.page); return; }
+      const ex=e.target.closest('[data-export]');
+      if (ex) exportTable(ex.dataset.export);
+    });
+    const tip=$('tip');
+    root.addEventListener('mousemove',e=>{
+      const t=e.target.closest('[data-tip]');
+      if (!t) { tip.hidden=true; return; }
+      tip.textContent=t.dataset.tip; tip.hidden=false;
+      const x=Math.min(e.clientX+14,innerWidth-tip.offsetWidth-8), y=e.clientY+14+tip.offsetHeight>innerHeight?e.clientY-tip.offsetHeight-10:e.clientY+14;
+      tip.style.left=Math.max(4,x)+'px'; tip.style.top=y+'px';
+    });
+    root.addEventListener('mouseleave',()=>{ tip.hidden=true; });
+    window.addEventListener('hashchange',()=>setView(location.hash.slice(1)));
+    setView(location.hash.slice(1));
+  })();
+</script></body></html>

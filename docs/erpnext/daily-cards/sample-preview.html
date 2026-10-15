@@ -1,0 +1,439 @@
+<!doctype html><html><head><title>Daily review sample</title><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>#dc {
+    --ink: #172c39;
+    --muted: #617581;
+    --line: #dce6eb;
+    --teal: #007e80;
+    --bg: #f3f7f9;
+    --card: #ffffff;
+    --good: #2e9e5b;
+    --warn: #e0962c;
+    --bad: #d1462f;
+    --none: #a9bcc5;
+    color: var(--ink);
+    font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif;
+    background: var(--bg);
+    padding: 12px;
+    border-radius: 10px;
+    max-width: 1200px;
+    margin: 0 auto
+}
+
+#dc * {
+    box-sizing: border-box
+}
+
+#dc button,
+#dc input {
+    font: inherit
+}
+
+/* Header */
+#dc .dc-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+    margin-bottom: 8px
+}
+
+#dc .dc-brand strong {
+    display: block;
+    font-size: 21px;
+    line-height: 1.2
+}
+
+#dc .dc-eyebrow {
+    display: block;
+    color: var(--teal);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px
+}
+
+#dc .dc-muted {
+    color: var(--muted);
+    font-size: 13px
+}
+
+#dc .dc-nav {
+    display: flex;
+    gap: 6px;
+    align-items: center
+}
+
+#dc .dc-nav button,
+#dc .dc-tools button {
+    border: 0;
+    border-radius: 8px;
+    background: var(--teal);
+    color: #fff;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 12px;
+    cursor: pointer;
+    font-size: 15px
+}
+
+#dc .dc-nav button {
+    font-size: 22px;
+    line-height: 1
+}
+
+#dc .dc-tools {
+    display: flex;
+    gap: 6px
+}
+
+#dc .dc-tools .dc-ghost {
+    background: #fff;
+    color: var(--teal);
+    border: 1px solid #b9d6d7
+}
+
+#dc .dc-tools .dc-ghost[aria-pressed="true"] {
+    background: var(--teal);
+    color: #fff
+}
+
+#dc button:disabled {
+    opacity: .45;
+    cursor: default
+}
+
+#dc input[type="date"] {
+    height: 40px;
+    border: 1px solid #cbdbe1;
+    border-radius: 8px;
+    padding: 0 8px;
+    background: #fff;
+    color: var(--ink)
+}
+
+#dc #dc-message {
+    margin: 0 0 10px;
+    padding: 8px 12px;
+    background: #e5f2f2;
+    border-radius: 8px;
+    font-size: 14px
+}
+
+#dc #dc-message.flag {
+    background: #fdecc8;
+    color: #6f4a00
+}
+
+/* Card grid: one column on phones, more on wider screens */
+#dc .dc-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px
+}
+
+@media (min-width: 560px) {
+    #dc .dc-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr))
+    }
+}
+
+@media (min-width: 900px) {
+    #dc .dc-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr))
+    }
+}
+
+@media (min-width: 1150px) {
+    #dc .dc-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr))
+    }
+}
+
+#dc .dc-section {
+    grid-column: 1 / -1;
+    margin: 8px 2px -2px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--muted)
+}
+
+/* Flip cards */
+#dc .dc-card {
+    perspective: 1000px;
+    height: 220px;
+    cursor: pointer;
+    outline: none
+}
+
+#dc .dc-inner {
+    position: relative;
+    height: 100%;
+    transition: transform .5s;
+    transform-style: preserve-3d
+}
+
+#dc .dc-card.flipped .dc-inner {
+    transform: rotateY(180deg)
+}
+
+#dc .dc-face {
+    position: absolute;
+    inset: 0;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 5px solid var(--none);
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 2px rgba(23, 44, 57, .06)
+}
+
+#dc .dc-back {
+    transform: rotateY(180deg);
+    overflow: auto
+}
+
+#dc .dc-card.good .dc-face {
+    border-left-color: var(--good)
+}
+
+#dc .dc-card.warn .dc-face {
+    border-left-color: var(--warn)
+}
+
+#dc .dc-card.bad .dc-face {
+    border-left-color: var(--bad)
+}
+
+#dc .dc-card:focus-visible .dc-face {
+    outline: 3px solid #54b7d0;
+    outline-offset: 2px
+}
+
+#dc .dc-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px
+}
+
+#dc .dc-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .6px;
+    text-transform: uppercase;
+    color: var(--muted)
+}
+
+#dc .dc-pill {
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 2px 8px;
+    white-space: nowrap;
+    background: #eef3f5;
+    color: var(--muted)
+}
+
+#dc .good .dc-pill {
+    background: #e2f4ea;
+    color: #1f7a45
+}
+
+#dc .warn .dc-pill {
+    background: #fcefd9;
+    color: #8a5a00
+}
+
+#dc .bad .dc-pill {
+    background: #fbe3df;
+    color: #a3301d
+}
+
+#dc .dc-value {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 14px 0 4px;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -.5px
+}
+
+#dc .dc-value small {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--muted);
+    margin-left: 4px;
+    letter-spacing: 0
+}
+
+#dc .dc-sub {
+    font-size: 14px;
+    color: #34495a
+}
+
+#dc .dc-hint {
+    margin-top: auto;
+    font-size: 12px;
+    color: var(--muted)
+}
+
+/* Card backs */
+#dc .dc-back .dc-label {
+    margin-bottom: 6px
+}
+
+#dc .dc-mini {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px
+}
+
+#dc .dc-mini th {
+    text-align: right;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    padding: 2px 4px;
+    border-bottom: 1px solid var(--line)
+}
+
+#dc .dc-mini th:first-child,
+#dc .dc-mini td:first-child {
+    text-align: left
+}
+
+#dc .dc-mini td {
+    padding: 3px 4px;
+    text-align: right;
+    border-bottom: 1px solid #eef3f5;
+    font-variant-numeric: tabular-nums
+}
+
+#dc .dc-mini td:first-child {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+
+#dc .dc-mini tr.total td {
+    font-weight: 700;
+    border-top: 1px solid #b8c8cf
+}
+
+#dc .dc-note {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px
+}
+
+#dc .dc-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 13px
+}
+
+#dc .dc-list li {
+    padding: 4px 0;
+    border-bottom: 1px solid #eef3f5
+}
+
+#dc .dc-list b {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 600
+}
+
+#dc .dc-bar {
+    display: grid;
+    grid-template-columns: 82px 1fr 46px;
+    gap: 6px;
+    align-items: center;
+    font-size: 12px;
+    margin: 4px 0
+}
+
+#dc .dc-bar i {
+    display: block;
+    height: 10px;
+    border-radius: 5px;
+    background: var(--teal)
+}
+
+#dc .dc-bar span:last-child {
+    text-align: right;
+    font-variant-numeric: tabular-nums
+}
+
+#dc .dc-error .dc-face {
+    border-left-color: var(--bad)
+}
+
+#dc .dc-foot {
+    margin: 12px 2px 0
+}
+
+@media (max-width: 420px) {
+    #dc {
+        padding: 8px;
+        border-radius: 0
+    }
+
+    #dc .dc-head {
+        gap: 8px
+    }
+
+    /* Date bar and buttons each take a full row on phones */
+    #dc .dc-brand,
+    #dc .dc-nav,
+    #dc .dc-tools {
+        flex: 1 1 100%
+    }
+
+    #dc .dc-nav input {
+        flex: 1;
+        min-width: 0
+    }
+
+    #dc .dc-tools button {
+        flex: 1
+    }
+
+    #dc .dc-card {
+        height: 200px
+    }
+
+    #dc .dc-value {
+        font-size: 32px;
+        margin-top: 10px
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #dc .dc-inner {
+        transition: none
+    }
+}
+</style></head><body style="margin:0;background:#f3f7f9"><div id="dc">
+  <header class="dc-head">
+    <div class="dc-brand"><span class="dc-eyebrow">DAILY REVIEW</span><strong id="dc-title">Sunday, 11 Oct 2026</strong><span id="dc-window" class="dc-muted">11 Oct 6 AM to 12 Oct 6 AM</span></div>
+    <div class="dc-nav">
+      <button id="dc-prev" aria-label="Previous day">‹</button>
+      <input id="dc-day" type="date" value="2026-10-11" aria-label="Production date">
+      <button id="dc-next" aria-label="Next day" disabled="">›</button>
+    </div>
+    <div class="dc-tools">
+      <button id="dc-flip" class="dc-ghost" aria-pressed="true">Flip all</button>
+      <button id="dc-refresh" class="dc-ghost">Refresh</button>
+    </div>
+  </header>
+  <p id="dc-message" role="status" class="flag">1 of 2 production reports for this day are still in draft; figures may change.</p>
+  <div id="dc-cards" class="dc-grid"><div class="dc-section">PRODUCTION</div><div class="dc-card good" tabindex="0" role="button" aria-pressed="true" aria-label="DRI production, tap for details"><div class="dc-inner"><div class="dc-face dc-front"><div class="dc-top"><span class="dc-label">DRI production</span><span class="dc-pill">On target</span></div><div class="dc-value">499<small>MT</small></div><div class="dc-sub">Target 484 MT · 103%</div><div class="dc-hint">Tap for details ↻</div></div><div class="dc-face dc-back"><div class="dc-label">DRI production</div><table class="dc-mini"><tbody><tr><th>Kiln</th><th>Day MT</th><th>MTD MT</th></tr><tr><td>KILN-1</td><td>236</td><td>2,747</td></tr><tr><td>KILN-2</td><td>264</td><td>2,666</td></tr><tr class="total"><td>All kilns</td><td>499</td><td>5,413</td></tr></tbody></table><p class="dc-note">MTD 5,413 MT vs pro-rata 5,323 (102%) · 492.1 MT/day · 36% of the month's 15,000</p></div></div></div><div class="dc-card" tabindex="0" role="button" aria-pressed="true" aria-label="Yield, tap for details"><div class="dc-inner"><div class="dc-face dc-front"><div class="dc-top"><span class="dc-label">Yield</span></div><div class="dc-value">64.5%</div><div class="dc-sub">Pellet 64.5% · iron ore 10–40 62.5%</div><div class="dc-hint">Tap for details ↻</div></div><div class="dc-face dc-back"><div class="dc-label">Yield</div><table class="dc-mini"><tbody><tr><th>Kiln</th><th>Pellet</th><th>Ore</th><th>MTD</th></tr><tr><td>KILN-1</td><td>64.5%</td><td>—</td><td>64.5%</td></tr><tr><td>KILN-2</td><td>—</td><td>62.5%</td><td>62.5%</td></tr></tbody></table><p class="dc-note">DRI on days the feed was charged ÷ feed consumed (as in the DPR). MTD pellet 64.5% · ore 62.5%</p></div></div></div><div class="dc-card" tabindex="0" role="button" aria-pressed="true" aria-label="&quot;A&quot; grade, tap for details"><div class="dc-inner"><div class="dc-face dc-front"><div class="dc-top"><span class="dc-label">"A" grade</span></div><div class="dc-value">92.1%</div><div class="dc-sub">A 40.7 h · B 3.5 h · MTD 91.6%</div><div class="dc-hint">Tap for details ↻</div></div><div class="dc-face dc-back"><div class="dc-label">"A" grade</div><table class="dc-mini"><tbody><tr><th>Kiln</th><th>A %</th><th>A h</th><th>B h</th><th>MTD</th></tr><tr><td>KILN-1</td><td>93.1%</td><td>18.5</td><td>1.4</td><td>92.5%</td></tr><tr><td>KILN-2</td><td>91.2%</td><td>22.3</td><td>2.1</td><td>90.7%</td></tr><tr class="total"><td>All kilns</td><td>92.1%</td><td>40.7</td><td>3.5</td><td>91.6%</td></tr></tbody></table></div></div></div><div class="dc-card" tabindex="0" role="button" aria-pressed="true" aria-label="Specific coal, tap for details"><div class="dc-inner"><div class="dc-face dc-front"><div class="dc-top"><span class="dc-label">Specific coal</span></div><div class="dc-value">0.95<small>MT/MT</small></div><div class="dc-sub">F.C. 48.1% · MTD 0.95</div><div class="dc-hint">Tap for details ↻</div></div><div class="dc-face dc-back"><div class="dc-label">Specific coal</div><table class="dc-mini"><tbody><tr><td>Imported (RB2)</td><td>299.6 MT</td></tr><tr><td>Washed</td><td>99.9 MT</td></tr><tr><td>Domestic (ROM B + RB1)</td><td>74.9 MT</td></tr><tr><td>Total coal</td><td>474.3 MT</td></tr><tr><td>Sp. iron / pellets</td><td>1.58 MT/MT</td></tr><tr><td>Sp. dolomite</td><td>0.030 MT/MT</td></tr><tr><td>MTD sp. coal / iron</td><td>0.95 / 1.57</td></tr></tbody></table></div></div></div><div class="dc-card" tabindex="0" role="button" aria-pressed="true" aria-label="DRI quality, tap for details"><div class="dc-inner"><div class="dc-face dc-front"><div class="dc-top"><span class="dc-label">DRI quality</span></div><div class="dc-value">81.18%</div><div class="dc-sub">Fe(M) · C 0.13% · S 0.028%</div><div class="dc-hint">Tap for details ↻</div></div><div class="dc-face dc-back"><div class="dc-label">DRI quality</div><table class="dc-mini"><tbody><tr><th>Kiln</th><th>Fe(M) %</th><th>C %</th><th>S %</th></tr><tr><td>KILN-1</td><td>80.83</td><td>0.13</td><td>0.029</td></tr><tr><td>KILN-2</td><td>81.49</td><td>0.12</td><td>0.027</td></tr><tr class="total"><td>All kilns</td><td>81.18</td><td>0.13</td><td>0.028</td></tr></tbody></table><p class="dc-note">Non-mag in char 11.7% · MTD Fe(M) 80.22% · weighted by DRI; blank lab values ignored</p></div></div></div><div class="dc-section">POWER PLANT</div><div class="dc-card warn" tabindex="0" role="button" aria-pressed="true" aria-label="Power generated, tap for details"><div class="dc-inner"><div class="dc-face dc-front"><div class="dc-top"><span class="dc-label">Power generated</span><span class="dc-pill">Watch</span></div><div class="dc-value">13.87<small>MW</small></div><div class="dc-sub">Target 14 MW · 333 MWh · MTD 13.81 MW</div><div class="dc-hint">Tap for details ↻</div></div><div class="dc-face dc-back"><div class="dc-label">Power generated</div><table class="dc-mini"><tbody><tr><th>Kiln</th><th>MW</th><th>MWh</th><th>MTD MW</th></tr><tr><td>KILN-1</td><td>7.47</td><td>179</td><td>7.05</td></tr><tr><td>KILN-2</td><td>6.40</td><td>154</td><td>6.77</td></tr><tr class="total"><td>All kilns</td><td>13.87</td><td>333</td><td>13.81</td></tr></tbody></table><p class="dc-note">Running hours: TG 24.0 · WHRB 23.0 · DG 0.0</p></div></div></div><div class="dc-card" tabindex="0" role="button" aria-pressed="true" aria-label="Power balance, tap for details"><div class="dc-inner"><div class="dc-face dc-front"><div class="dc-top"><span class="dc-label">Power balance</span></div><div class="dc-value">23.4<small>MWh import</small></div><div class="dc-sub">Export 35.8 MWh · aux 9.4%</div><div class="dc-hint">Tap for details ↻</div></div><div class="dc-face dc-back"><div class="dc-label">Power balance</div><table class="dc-mini"><tbody><tr><th>MWh</th><th>Day</th></tr><tr><td>Generated</td><td>332.9</td></tr><tr><td>Grid import</td><td>23.4</td></tr><tr><td>DRI plant</td><td>39.9</td></tr><tr><td>Power plant aux</td><td>31.4</td></tr><tr><td>Export</td><td>35.8</td></tr><tr><td>Other / unaccounted</td><td>249.2</td></tr></tbody></table><p class="dc-note">Sp. power 80 units/MT DRI · MTD aux 10.0%</p></div></div></div><div class="dc-card" tabindex="0" role="button" aria-pressed="true" aria-label="Steam &amp; SSC, tap for details"><div class="dc-inner"><div class="dc-face dc-front"><div class="dc-top"><span class="dc-label">Steam &amp; SSC</span></div><div class="dc-value">5.11<small>t/MWh</small></div><div class="dc-sub">Steam 69.1 TPH · MTD SSC 4.89</div><div class="dc-hint">Tap for details ↻</div></div><div class="dc-face dc-back"><div class="dc-label">Steam &amp; SSC</div><table class="dc-mini"><tbody><tr><td>Steam generated</td><td>1,658 t</td></tr><tr><td>Steam to turbine</td><td>1,701 t</td></tr><tr><td>Plant load factor</td><td>0.82</td></tr><tr><td>Power factor</td><td>0.95</td></tr><tr><td>DM water used</td><td>90 KL</td></tr><tr><td>DM water produced</td><td>120 KL</td></tr></tbody></table></div></div></div><div class="dc-card warn" tabindex="0" role="button" aria-pressed="true" aria-label="Remarks &amp; breakdowns, tap for details"><div class="dc-inner"><div class="dc-face dc-front"><div class="dc-top"><span class="dc-label">Remarks &amp; breakdowns</span><span class="dc-pill">1 breakdown</span></div><div class="dc-value">2<small>notes</small></div><div class="dc-sub">KILN-1 · DRI: Feed chute jam 40 min</div><div class="dc-hint">Tap for details ↻</div></div><div class="dc-face dc-back"><div class="dc-label">Remarks &amp; breakdowns</div><ul class="dc-list"><li><b>KILN-1 · DRI</b>Feed chute jam 40 min</li><li><b>KILN-2 · Power plant · WHRB</b>Soot blowing extended</li></ul></div></div></div><div class="dc-section">WEIGHBRIDGE</div><div class="dc-card" tabindex="0" role="button" aria-pressed="true" aria-label="Inward, tap for details"><div class="dc-inner"><div class="dc-face dc-front"><div class="dc-top"><span class="dc-label">Inward</span></div><div class="dc-value">1,752<small>MT</small></div><div class="dc-sub">70 trucks · 4 materials</div><div class="dc-hint">Tap for details ↻</div></div><div class="dc-face dc-back"><div class="dc-label">Inward</div><table class="dc-mini"><tbody><tr><th>Material</th><th>Trucks</th><th>MT</th><th>TAT</th></tr><tr><td>IRON ORE 10-40</td><td>28</td><td>713.3</td><td>158</td></tr><tr><td>DOLOMITE</td><td>17</td><td>425.9</td><td>171</td></tr><tr><td>PELLET</td><td>14</td><td>341.9</td><td>161</td></tr><tr><td>RB2 COAL</td><td>11</td><td>270.8</td><td>143</td></tr><tr class="total"><td>Total</td><td>70</td><td>1,751.9</td><td>160</td></tr></tbody></table></div></div></div><div class="dc-card" tabindex="0" role="button" aria-pressed="true" aria-label="Outward, tap for details"><div class="dc-inner"><div class="dc-face dc-front"><div class="dc-top"><span class="dc-label">Outward</span></div><div class="dc-value">1,339<small>MT</small></div><div class="dc-sub">51 trucks · 2 parties</div><div class="dc-hint">Tap for details ↻</div></div><div class="dc-face dc-back"><div class="dc-label">Outward</div><table class="dc-mini"><tbody><tr><th>Party</th><th>Trucks</th><th>MT</th><th>TAT</th></tr><tr><td>Foundry C</td><td>26</td><td>683.6</td><td>153</td></tr><tr><td>Steel Buyer A</td><td>25</td><td>655.4</td><td>176</td></tr><tr class="total"><td>Total</td><td>51</td><td>1,339.0</td><td>164</td></tr></tbody></table></div></div></div><div class="dc-card warn" tabindex="0" role="button" aria-pressed="true" aria-label="Truck turnaround, tap for details"><div class="dc-inner"><div class="dc-face dc-front"><div class="dc-top"><span class="dc-label">Truck turnaround</span><span class="dc-pill">11 waiting</span></div><div class="dc-value">162<small>min avg</small></div><div class="dc-sub">Median 163 · P90 264 min</div><div class="dc-hint">Tap for details ↻</div></div><div class="dc-face dc-back"><div class="dc-label">Truck turnaround</div><div class="dc-bar"><span>≤ 30 min</span><i style="width:5.5%"></i><span>3</span></div><div class="dc-bar"><span>30–60</span><i style="width:21.8%"></i><span>12</span></div><div class="dc-bar"><span>60–120</span><i style="width:43.6%"></i><span>24</span></div><div class="dc-bar"><span>120–240</span><i style="width:100.0%"></i><span>55</span></div><div class="dc-bar"><span>&gt; 240</span><i style="width:49.1%"></i><span>27</span></div><p class="dc-note">Waiting for second weighing at 6 AM: inward 8 · outward 3. Timing unavailable: 0</p></div></div></div><div class="dc-section">SALES · FG-0001</div><div class="dc-card" tabindex="0" role="button" aria-pressed="true" aria-label="Invoiced today, tap for details"><div class="dc-inner"><div class="dc-face dc-front"><div class="dc-top"><span class="dc-label">Invoiced today</span></div><div class="dc-value">₹2.64 Cr</div><div class="dc-sub">878.9 MT · ₹30,000/MT · 6 invoices</div><div class="dc-hint">Tap for details ↻</div></div><div class="dc-face dc-back"><div class="dc-label">Invoiced today</div><table class="dc-mini"><tbody><tr><th>Customer</th><th>MT</th><th>₹ Cr</th></tr><tr><td>Re-roller D</td><td>718.6</td><td>2.16</td></tr><tr><td>Foundry C</td><td>90.7</td><td>0.27</td></tr><tr><td>Steel Buyer A</td><td>69.7</td><td>0.21</td></tr><tr class="total"><td>Total</td><td>878.9</td><td>2.64</td></tr></tbody></table></div></div></div><div class="dc-card" tabindex="0" role="button" aria-pressed="true" aria-label="Invoiced this month, tap for details"><div class="dc-inner"><div class="dc-face dc-front"><div class="dc-top"><span class="dc-label">Invoiced this month</span></div><div class="dc-value">₹4.43 Cr</div><div class="dc-sub">1,477 MT · ₹30,000/MT</div><div class="dc-hint">Tap for details ↻</div></div><div class="dc-face dc-back"><div class="dc-label">Invoiced this month</div><table class="dc-mini"><tbody><tr><td>Invoices</td><td>9</td></tr><tr><td>Orders booked today</td><td>₹0.00 Cr · 0 MT</td></tr><tr><td>Orders booked MTD</td><td>₹3.30 Cr · 1,100 MT</td></tr></tbody></table><p class="dc-note">Invoices and orders of at least ₹50,000 net, before tax</p></div></div></div><div class="dc-card warn" tabindex="0" role="button" aria-pressed="true" aria-label="Pending to deliver, tap for details"><div class="dc-inner"><div class="dc-face dc-front"><div class="dc-top"><span class="dc-label">Pending to deliver</span><span class="dc-pill">1,760 MT overdue</span></div><div class="dc-value">1,760<small>MT</small></div><div class="dc-sub">₹5.28 Cr · 8 open orders</div><div class="dc-hint">Tap for details ↻</div></div><div class="dc-face dc-back"><div class="dc-label">Pending to deliver</div><table class="dc-mini"><tbody><tr><th>Customer</th><th>MT</th><th>Late</th><th>₹ Cr</th></tr><tr><td>Foundry C</td><td>1,340</td><td>1,340</td><td>4.02</td></tr><tr><td>Steel Buyer A</td><td>420</td><td>420</td><td>1.26</td></tr></tbody></table></div></div></div><div class="dc-card bad" tabindex="0" role="button" aria-pressed="true" aria-label="Receivables overdue, tap for details"><div class="dc-inner"><div class="dc-face dc-front"><div class="dc-top"><span class="dc-label">Receivables overdue</span><span class="dc-pill">Over 20 days</span></div><div class="dc-value">₹13.36 Cr</div><div class="dc-sub">100% of ₹13.36 Cr owed · oldest 72 days</div><div class="dc-hint">Tap for details ↻</div></div><div class="dc-face dc-back"><div class="dc-label">Receivables overdue</div><div class="dc-bar"><span>Not due</span><i style="width:0.0%"></i><span>0.00</span></div><div class="dc-bar"><span>1–5 d</span><i style="width:36.1%"></i><span>3.49</span></div><div class="dc-bar"><span>6–10 d</span><i style="width:2.0%"></i><span>0.20</span></div><div class="dc-bar"><span>11–20 d</span><i style="width:0.0%"></i><span>0.00</span></div><div class="dc-bar"><span>&gt; 20 d</span><i style="width:100.0%"></i><span>9.67</span></div><table class="dc-mini"><tbody><tr><th>Most overdue</th><th>₹ Cr</th><th>Days</th></tr><tr><td>Foundry C</td><td>5.21</td><td>71</td></tr><tr><td>Steel Buyer B</td><td>3.50</td><td>70</td></tr><tr><td>Re-roller D</td><td>2.59</td><td>65</td></tr><tr><td>Steel Buyer A</td><td>2.06</td><td>72</td></tr></tbody></table><p class="dc-note">All sales invoices, ₹ Cr, days past due</p></div></div></div></div>
+  <p class="dc-muted dc-foot">Tap a card for details. The day runs 6 AM to 6 AM; MTD = month to date.</p>
+</div><p style="font:13px system-ui;color:#617581;text-align:center;margin:12px">Sample with made-up data: cards flip, but the date bar and Refresh only work on the ERPNext Web Page.</p><script>document.addEventListener('click',e=>{const c=e.target.closest('.dc-card');if(c)c.classList.toggle('flipped');const f=e.target.closest('#dc-flip');if(f){const on=f.getAttribute('aria-pressed')!=='true';f.setAttribute('aria-pressed',on);document.querySelectorAll('.dc-card').forEach(c=>c.classList.toggle('flipped',on));}});</script></body></html>
