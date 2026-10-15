@@ -4,8 +4,10 @@
 #   Event Frequency: Cron
 #   Cron Format: 0 10 * * *      (10:00 every day, after the DRI Production reports are entered)
 
-TELEGRAM_PROFILE = "NPSL Purchase"
-TELEGRAM_FILE_METHOD = "sendtelegramfile"   # API Method name of your "send a file to Telegram" server script
+# Telegram profile, file-sending method and pause switch come from Fluid Settings (/app/fluid-settings).
+TELEGRAM_PROFILE = frappe.db.get_single_value("Fluid Settings", "telegram_profile") or "NPSL Purchase"
+TELEGRAM_FILE_METHOD = frappe.db.get_single_value("Fluid Settings", "telegram_file_method") or "sendtelegramfile"
+PAUSED = frappe.db.get_single_value("Fluid Settings", "pause_daily_review")
 PRINT_FORMAT = "Daily Operations Review"
 
 day = frappe.utils.add_days(frappe.utils.nowdate(), -1)
@@ -18,7 +20,9 @@ reports = frappe.get_all(
     order_by="kiln_no asc",
 )
 
-if not reports:
+if PAUSED:
+    pass
+elif not reports:
     frappe.log_error("No DRI Production report for " + str(day) + "; daily review not sent.", "Daily Operations Review")
 else:
     # Telegram downloads the PDF from the site, so it is saved as a public file just long enough

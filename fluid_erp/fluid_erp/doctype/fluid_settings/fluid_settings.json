@@ -1,0 +1,85 @@
+{
+ "actions": [],
+ "creation": "2026-10-15 14:30:00.000000",
+ "custom": 0,
+ "docstatus": 0,
+ "doctype": "DocType",
+ "editable_grid": 0,
+ "engine": "InnoDB",
+ "field_order": [
+  "about_section",
+  "about_html",
+  "daily_review_section",
+  "pause_daily_review",
+  "telegram_profile",
+  "column_break_tg",
+  "telegram_file_method"
+ ],
+ "fields": [
+  {
+   "fieldname": "about_section",
+   "fieldtype": "Section Break",
+   "label": "About Fluid",
+   "collapsible": 0
+  },
+  {
+   "fieldname": "about_html",
+   "fieldtype": "HTML",
+   "label": "Add-ons",
+   "options": "<div style=\"max-width: 760px; line-height: 1.6\">\n<p><b>Fluid</b> is this site's custom app for ERPNext add-ons. Everything below ships with the app and is updated on <code>bench migrate</code>; change it in the repository, not on screen.</p>\n<table class=\"table table-bordered\" style=\"font-size: 13px\">\n<thead><tr><th>Add-on</th><th>Type</th><th>Open</th></tr></thead>\n<tbody>\n<tr><td>Fluid ERP: keyboard-first entry, day book, reports</td><td>App page</td><td><a href=\"/fluid\" target=\"_blank\">/fluid</a></td></tr>\n<tr><td>Business dashboard: production, sales, purchases, weighments</td><td>Web Page</td><td><a href=\"/dashboard\" target=\"_blank\">/dashboard</a></td></tr>\n<tr><td>Daily review: flip cards</td><td>Web Page</td><td><a href=\"/daily\" target=\"_blank\">/daily</a></td></tr>\n<tr><td>Daily review: stories</td><td>Web Page</td><td><a href=\"/stories\" target=\"_blank\">/stories</a></td></tr>\n<tr><td>Daily Operations Review: 3-page landscape PDF</td><td>Print Format on DRI Production</td><td><a href=\"/app/print-format/Daily Operations Review\">Daily Operations Review</a></td></tr>\n<tr><td>Kiln DPR, one kiln per A3 sheet</td><td>Print Format on DRI Production</td><td><a href=\"/app/print-format/Kiln DPR A3\">Kiln DPR A3</a></td></tr>\n<tr><td>Daily PDF to Telegram at 10:00 (settings below)</td><td>Server Script, scheduled</td><td><a href=\"/app/server-script/Daily Operations Review Sender\">Daily Operations Review Sender</a></td></tr>\n<tr><td>Send a file to Telegram by URL</td><td>Server Script, API</td><td><a href=\"/app/server-script/sendtelegramfile\">sendtelegramfile</a></td></tr>\n</tbody></table>\n<p>Targets and other figures (15,000 MT a month, 14 MW, FG-0001, ₹50,000 minimum) are set at the top of each page's script or print format. Details for each add-on are in <code>docs/erpnext/</code> in the repository.</p>\n</div>"
+  },
+  {
+   "fieldname": "daily_review_section",
+   "fieldtype": "Section Break",
+   "label": "Daily Operations Review on Telegram",
+   "collapsible": 0
+  },
+  {
+   "fieldname": "pause_daily_review",
+   "fieldtype": "Check",
+   "label": "Pause the daily PDF",
+   "default": "0",
+   "description": "Stops the 10:00 send without touching the server script."
+  },
+  {
+   "fieldname": "telegram_profile",
+   "fieldtype": "Data",
+   "label": "Telegram Settings profile",
+   "description": "The Telegram Settings record the PDF goes to. Left empty: NPSL Purchase."
+  },
+  {
+   "fieldname": "column_break_tg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "telegram_file_method",
+   "fieldtype": "Data",
+   "label": "File-sending API method",
+   "description": "API method of the server script that sends a file to Telegram. Left empty: sendtelegramfile."
+  }
+ ],
+ "icon": "fa fa-cog",
+ "idx": 0,
+ "issingle": 1,
+ "links": [],
+ "modified": "2026-10-15 14:30:00.000000",
+ "modified_by": "Administrator",
+ "module": "Fluid ERP",
+ "name": "Fluid Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

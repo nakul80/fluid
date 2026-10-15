@@ -8,7 +8,7 @@
  "enable_rate_limit": 0,
  "event_frequency": "Cron",
  "idx": 0,
- "modified": "2026-10-15 14:15:00.000000",
+ "modified": "2026-10-15 14:30:00.000000",
  "modified_by": "Administrator",
  "module": "Fluid ERP",
  "name": "Daily Operations Review Sender",
