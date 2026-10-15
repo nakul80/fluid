@@ -3,7 +3,7 @@
 The custom Frappe app for this site's ERPNext add-ons. ERPNext stays the system of record (books, stock, users, permissions); Fluid adds:
 
 - **Fluid ERP**, a fast, keyboard-first, Tally-style front end at `https://<your-site>/fluid`.
-- **Dashboards and daily reviews** for production, sales, purchases and weighments (`/dashboard`, `/daily`, `/stories`).
+- **Dashboards and daily reviews** for production, sales, purchases and weighments (`/fluid-dashboard`, `/fluid-daily`, `/fluid-stories`).
 - **DRI Production print formats** (Daily Operations Review, Kiln DPR A3) and the daily review PDF sent to Telegram.
 
 In ERPNext, open the **Fluid** workspace for links to all of them, and **Fluid Settings** for the add-on list and settings. Details: [docs/erpnext/README.md](docs/erpnext/README.md).

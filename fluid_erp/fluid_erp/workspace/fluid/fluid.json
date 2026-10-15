@@ -12,7 +12,7 @@
  "is_hidden": 0,
  "label": "Fluid",
  "links": [],
- "modified": "2026-10-15 14:30:00.000000",
+ "modified": "2026-10-15 16:00:00.000000",
  "modified_by": "Administrator",
  "module": "Fluid ERP",
  "name": "Fluid",
@@ -38,17 +38,17 @@
   },
   {
    "type": "URL",
-   "url": "/dashboard",
+   "url": "/fluid-dashboard",
    "label": "Business Dashboard"
   },
   {
    "type": "URL",
-   "url": "/daily",
+   "url": "/fluid-daily",
    "label": "Daily Review"
   },
   {
    "type": "URL",
-   "url": "/stories",
+   "url": "/fluid-stories",
    "label": "Daily Stories"
   },
   {
