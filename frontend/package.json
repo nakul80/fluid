@@ -1,0 +1,30 @@
+{
+  "name": "fluid-erp",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:single": "vite build --mode single",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "e2e": "node tests/e2e.mjs",
+    "artifact": "vite build --mode single && node scripts/to-artifact.mjs dist-single/index.html dist-single/artifact.html",
+    "build:frappe": "vite build --mode frappe && node scripts/to-frappe-page.mjs"
+  },
+  "dependencies": {
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "playwright": "^1.64.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.4",
+    "vite-plugin-singlefile": "^2.3.3",
+    "vitest": "^5.0.4"
+  }
+}
