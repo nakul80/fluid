@@ -36,4 +36,15 @@ npm test               # unit tests
 npm run build:frappe   # rebuild fluid_erp/public/fluid and fluid_erp/www/fluid.html, then commit
 ```
 
-Status: the screens still run on the built-in demo engine with sample data. Wiring them to ERPNext through `frontend/src/api/` is the next step and needs access to a test site.
+## What works on ERPNext (v0.2)
+
+Opened at `/fluid` on your site, Fluid reads and writes your ERPNext data with your login and permissions:
+
+- Purchase Order, Purchase Receipt, Purchase Invoice, Sales Order, Delivery Note and Sales Invoice: keyboard entry (Shift+F9, Alt+F9, F9, Shift+F8, Alt+F8, F8), saved and submitted in ERPNext.
+- On a saved document: R receive, B bill, D deliver, I invoice, P pay / receive (uses ERPNext's own "make" mappings, so links and pending quantities are ERPNext's), X cancel, O open in ERPNext.
+- Day Book, purchase and sales cycle boards, stock summary, Ctrl+K search by document number.
+- Payment and Receipt from a bill or invoice (P). Standalone payments, journals, contra and the financial reports open in ERPNext for now.
+
+Opened anywhere else (or `npm run dev`), it shows the demo company instead.
+
+Not tested against a live ERPNext site yet; `frontend/tests/e2e-erp.mjs` checks the screens and request shapes against a stubbed API only.

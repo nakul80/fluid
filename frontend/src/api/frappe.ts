@@ -8,7 +8,7 @@ export class FrappeError extends Error {
   constructor(message: string, public status: number, public excType?: string) { super(message); }
 }
 
-export type Filters = [string, string, unknown][] | Record<string, unknown>;
+export type Filters = unknown[][] | Record<string, unknown>;
 
 export class Frappe {
   private f: typeof fetch;
@@ -51,7 +51,8 @@ export class Frappe {
 
   /** Insert and submit in one go, the equivalent of Tally's "Accept". */
   async post<T = Record<string, unknown>>(doc: { doctype: string } & Record<string, unknown>) {
-    const saved = await this.insert<Record<string, unknown>>(doc);
+    // frappe.client.insert accepts mapped drafts (from make_* methods) with their child rows as-is.
+    const saved = await this.call<Record<string, unknown>>('frappe.client.insert', { doc });
     return this.submit<T>(saved);
   }
 

@@ -36,7 +36,7 @@ export async function makeNext(api: Frappe, source: DocType, sourceName: string,
 export function cycleQueries(side: 'purchase' | 'sales'): { title: string; doctype: string; filters: Filters; fields: string[] }[] {
   const P = side === 'purchase';
   const party = P ? 'supplier' : 'customer';
-  const submitted: [string, string, unknown] = ['docstatus', '=', 1];
+  const submitted = ['docstatus', '=', 1];
   return [
     { title: P ? 'Ordered, not received' : 'Ordered, not delivered', doctype: P ? 'Purchase Order' : 'Sales Order',
       filters: [submitted, [P ? 'per_received' : 'per_delivered', '<', 100], ['status', 'not in', ['Closed', 'On Hold']]],
