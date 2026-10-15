@@ -1,7 +1,7 @@
 [project]
 name = "fluid_erp"
 authors = [{ name = "NRA" }]
-description = "Fluid ERP: a fast, keyboard-first, Tally-style front end for ERPNext"
+description = "Fluid: ERPNext add-ons (keyboard-first front end, dashboards, print formats and reports)"
 requires-python = ">=3.10"
 readme = "README.md"
 dynamic = ["version"]

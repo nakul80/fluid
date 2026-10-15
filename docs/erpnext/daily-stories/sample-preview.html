@@ -1,0 +1,451 @@
+<!doctype html><html><head><title>Daily review stories · sample</title><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>/* Full-screen story viewer: fills a phone; centred phone-sized frame on larger screens. */
+#ds {
+    --ink: #0f2230;
+    --text: #172c39;
+    --muted: #617581;
+    --line: #e1e9ed;
+    --up: #1f9d57;
+    --down: #d1462f;
+    --accent: #007e80;
+    position: fixed;
+    inset: 0;
+    z-index: 1050;
+    background: #0b1a24;
+    color: var(--text);
+    font: 15px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif;
+    display: flex;
+    justify-content: center
+}
+
+#ds * {
+    box-sizing: border-box
+}
+
+#ds button,
+#ds input {
+    font: inherit
+}
+
+#ds .ds-phone {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    height: 100%;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    background: var(--ink);
+    overflow: hidden
+}
+
+/* Area colours: the story background tints by area */
+#ds .ds-phone[data-area="production"] { background: linear-gradient(180deg, #0b7377 0%, #0b7377 22%, #0f2230 70%) }
+#ds .ds-phone[data-area="power"] { background: linear-gradient(180deg, #3a4fb0 0%, #3a4fb0 22%, #0f2230 70%) }
+#ds .ds-phone[data-area="weighbridge"] { background: linear-gradient(180deg, #a86b12 0%, #a86b12 22%, #0f2230 70%) }
+#ds .ds-phone[data-area="sales"] { background: linear-gradient(180deg, #1f8048 0%, #1f8048 22%, #0f2230 70%) }
+#ds .ds-phone[data-area="summary"] { background: linear-gradient(180deg, #172c39 0%, #0b1a24 100%) }
+
+/* Progress segments */
+#ds .ds-progress {
+    display: flex;
+    gap: 3px;
+    padding: 8px 10px 0
+}
+
+#ds .ds-progress i {
+    flex: 1;
+    height: 3px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, .28)
+}
+
+#ds .ds-progress i.done,
+#ds .ds-progress i.on {
+    background: #fff
+}
+
+#ds .ds-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 12px 6px;
+    color: #fff
+}
+
+#ds .ds-eyebrow {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: rgba(255, 255, 255, .7)
+}
+
+#ds .ds-head strong {
+    display: block;
+    font-size: 16px;
+    line-height: 1.2
+}
+
+#ds .ds-nav {
+    display: flex;
+    gap: 4px;
+    align-items: center
+}
+
+#ds .ds-nav button {
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, .16);
+    color: #fff;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer
+}
+
+#ds .ds-nav input {
+    height: 32px;
+    width: 128px;
+    border: 0;
+    border-radius: 16px;
+    padding: 0 8px;
+    background: rgba(255, 255, 255, .16);
+    color: #fff;
+    color-scheme: dark
+}
+
+#ds button:disabled {
+    opacity: .35;
+    cursor: default
+}
+
+/* Stories */
+#ds .ds-stage {
+    position: relative;
+    flex: 1;
+    min-height: 0
+}
+
+#ds .ds-story {
+    position: absolute;
+    inset: 0;
+    padding: 4px 12px 12px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    display: none
+}
+
+#ds .ds-story.active {
+    display: block;
+    animation: ds-in .25s ease-out
+}
+
+@keyframes ds-in {
+    from { opacity: 0; transform: translateX(14px) }
+    to { opacity: 1; transform: none }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #ds .ds-story.active { animation: none }
+}
+
+#ds .ds-kicker {
+    color: rgba(255, 255, 255, .75);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    margin: 6px 2px 2px
+}
+
+#ds .ds-h1 {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 750;
+    line-height: 1.15;
+    margin: 0 2px 10px
+}
+
+#ds .ds-hero {
+    color: #fff;
+    margin: 4px 2px 12px
+}
+
+#ds .ds-hero b {
+    display: block;
+    font-size: 46px;
+    line-height: 1;
+    letter-spacing: -1px;
+    font-variant-numeric: tabular-nums
+}
+
+#ds .ds-hero b small {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0;
+    opacity: .8;
+    margin-left: 4px
+}
+
+#ds .ds-hero span {
+    display: block;
+    margin-top: 6px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, .85)
+}
+
+#ds .ds-hero .ds-chip {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .16);
+    color: #fff
+}
+
+#ds .ds-chip.good { background: #1f9d57 }
+#ds .ds-chip.warn { background: #d18a1c }
+#ds .ds-chip.bad { background: #d1462f }
+
+#ds .ds-panel {
+    background: #fff;
+    border-radius: 14px;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, .18)
+}
+
+#ds .ds-panel h3 {
+    margin: 0 0 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: .4px;
+    text-transform: uppercase
+}
+
+#ds .ds-panel p {
+    margin: 0;
+    font-size: 13px;
+    color: var(--muted)
+}
+
+/* Summary tiles */
+#ds .ds-tiles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 10px
+}
+
+#ds .ds-tile {
+    background: #fff;
+    border-radius: 12px;
+    padding: 10px 12px;
+    border-left: 5px solid #a9bcc5
+}
+
+#ds .ds-tile.good { border-left-color: var(--up) }
+#ds .ds-tile.warn { border-left-color: #e0962c }
+#ds .ds-tile.bad { border-left-color: var(--down) }
+
+#ds .ds-tile small {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    color: var(--muted)
+}
+
+#ds .ds-tile b {
+    display: block;
+    font-size: 22px;
+    line-height: 1.2;
+    margin: 2px 0;
+    font-variant-numeric: tabular-nums
+}
+
+#ds .ds-tile span {
+    font-size: 12px;
+    color: #455a66
+}
+
+/* Compact tables */
+#ds .ds-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    font-variant-numeric: tabular-nums
+}
+
+#ds .ds-table th {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    text-align: right;
+    padding: 3px 4px;
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap
+}
+
+#ds .ds-table td {
+    text-align: right;
+    padding: 4px 4px;
+    border-bottom: 1px solid #f0f4f6;
+    white-space: nowrap
+}
+
+#ds .ds-table th:first-child,
+#ds .ds-table td:first-child {
+    text-align: left;
+    white-space: normal
+}
+
+#ds .ds-table td:first-child {
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+#ds .ds-table tr.total td {
+    font-weight: 700;
+    border-top: 1px solid #b8c8cf
+}
+
+#ds .ds-table tr.group td {
+    font-weight: 700;
+    background: #f5f8fa
+}
+
+#ds .ds-table td.ind {
+    padding-left: 14px
+}
+
+#ds .ds-table td.today {
+    font-weight: 700
+}
+
+#ds .ds-d {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 700
+}
+
+#ds .ds-d.up { color: var(--up) }
+#ds .ds-d.down { color: var(--down) }
+#ds .ds-d.flat { color: var(--muted) }
+
+/* Horizontal bars */
+#ds .ds-bar {
+    display: grid;
+    grid-template-columns: 96px 1fr 60px;
+    gap: 8px;
+    align-items: center;
+    font-size: 13px;
+    margin: 6px 0
+}
+
+#ds .ds-bar i {
+    display: block;
+    height: 12px;
+    border-radius: 6px;
+    background: var(--accent)
+}
+
+#ds .ds-bar i.mark {
+    background: #e0962c
+}
+
+#ds .ds-bar span:last-child {
+    text-align: right;
+    font-variant-numeric: tabular-nums
+}
+
+#ds .ds-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 14px
+}
+
+#ds .ds-list li {
+    padding: 6px 0;
+    border-bottom: 1px solid #f0f4f6
+}
+
+#ds .ds-list b {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 700
+}
+
+#ds .ds-flag {
+    background: #fdecc8;
+    color: #6f4a00;
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 13px;
+    margin-bottom: 10px
+}
+
+#ds .ds-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 12px calc(8px + env(safe-area-inset-bottom));
+    color: rgba(255, 255, 255, .75);
+    font-size: 12px
+}
+
+#ds .ds-foot button {
+    border: 0;
+    background: rgba(255, 255, 255, .14);
+    color: #fff;
+    border-radius: 16px;
+    height: 32px;
+    padding: 0 14px;
+    cursor: pointer
+}
+
+@media (min-width: 520px) {
+    #ds .ds-phone {
+        height: calc(100dvh - 24px);
+        margin-top: 12px;
+        border-radius: 18px
+    }
+}
+</style></head><body style="margin:0"><div id="ds">
+  <div class="ds-phone" data-area="sales">
+    <div id="ds-progress" class="ds-progress"><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="done"></i><i class="on"></i></div>
+    <header class="ds-head">
+      <div>
+        <span class="ds-eyebrow">DAILY REVIEW</span>
+        <strong id="ds-title">Sun, 11 Oct, 2026</strong>
+      </div>
+      <div class="ds-nav">
+        <button id="ds-prev-day" aria-label="Previous day">‹</button>
+        <input id="ds-day" type="date" value="2026-10-11" aria-label="Production date">
+        <button id="ds-next-day" aria-label="Next day">›</button>
+      </div>
+    </header>
+    <main id="ds-stage" class="ds-stage" aria-live="polite"><section class="ds-story"><div class="ds-kicker">Today at a glance · 6 AM to 6 AM</div><div class="ds-h1">Sun, 11 Oct, 2026</div><div class="ds-flag">1 of 2 production reports are still in draft; figures may change.</div><div class="ds-tiles"><div class="ds-tile good"><small>DRI production</small><b>535 MT</b><span>Target 484</span></div><div class="ds-tile warn"><small>Power</small><b>13.68 MW</b><span>Target 14</span></div><div class="ds-tile "><small>Inward</small><b>1,700 MT</b><span>66 trucks</span></div><div class="ds-tile "><small>Outward</small><b>625 MT</b><span>24 trucks</span></div><div class="ds-tile bad"><small>FG-0001 stock</small><b>540 MT</b><span>4 raw materials short for 30 days</span></div><div class="ds-tile warn"><small>Pending orders</small><b>1,560 MT</b><span>1,560 MT late</span></div><div class="ds-tile bad"><small>Receivables overdue</small><b>₹9.56 Cr</b><span>All invoices</span></div></div><p style="color:rgba(255,255,255,.75);font-size:13px;margin:0 2px">Tap the right side or swipe left for the next story; tap the left side to go back.</p></section><section class="ds-story"><div class="ds-kicker">DRI plant · 11 Oct</div><div class="ds-h1">DRI production</div><div class="ds-hero"><b>535<small>MT</small></b><span>Target 484 MT (111%) · MTD 5,729 vs pro-rata 5,323</span><span class="ds-chip good">On target</span></div><div class="ds-panel"><h3>Kilns today vs campaign</h3><table class="ds-table"><tbody><tr><th>Kiln</th><th>Today</th><th>Camp. avg</th><th>Prev. camp.</th></tr><tr><td>KILN-1 · C7 (day 27)</td><td>295<span class="ds-d up">▲ 44</span></td><td>251</td><td>251</td></tr><tr><td>KILN-2 · C4 (day 48)</td><td>240<span class="ds-d down">▼ 16</span></td><td>256</td><td>242</td></tr><tr class="total"><td>All kilns</td><td>535</td><td>506</td><td>493</td></tr></tbody></table></div><div class="ds-panel"><h3>Month to date</h3><div class="ds-bar"><span>MTD actual</span><i style="width:38.2%"></i><span>5,729 MT</span></div><div class="ds-bar"><span>Pro-rata target</span><i class="mark" style="width:35.5%"></i><span>5,323 MT</span></div><div class="ds-bar"><span>Month target</span><i class="mark" style="width:100.0%"></i><span>15,000 MT</span></div><p>520.9 MT/day over 11 days</p></div></section><section class="ds-story"><div class="ds-kicker">DRI plant · today vs campaign</div><div class="ds-h1">KILN-1 · campaign 7</div><div class="ds-hero"><b>295<small>MT</small></b><span>Campaign day 27 since 15 Sept · avg 251 MT/day · prev. C6 251</span></div><div class="ds-panel"><h3>Production &amp; consumption</h3><table class="ds-table"><tbody><tr><th></th><th>Today</th><th>C7 avg</th><th>C6</th></tr><tr><td>DRI MT/day</td><td>295<span class="ds-d up">▲ 44</span></td><td>251</td><td>251</td></tr><tr><td>Pellet yield %</td><td>64.5<span class="ds-d flat">= </span></td><td>64.5</td><td>64.5</td></tr><tr><td>"A" grade %</td><td>99.1<span class="ds-d up">▲ 7.5</span></td><td>91.6</td><td>92.2</td></tr><tr><td>Sp. coal</td><td>0.95<span class="ds-d flat">= </span></td><td>0.95</td><td>0.95</td></tr><tr><td>Sp. iron</td><td>1.55<span class="ds-d flat">= </span></td><td>1.55</td><td>1.55</td></tr><tr><td>Sp. dolomite</td><td>0.030<span class="ds-d flat">= </span></td><td>0.030</td><td>0.030</td></tr><tr><td>Coal F.C. %</td><td>48.1<span class="ds-d flat">= </span></td><td>48.1</td><td>48.1</td></tr><tr><td>Sp. power</td><td>80<span class="ds-d flat">= </span></td><td>80</td><td>80</td></tr></tbody></table></div><div class="ds-panel"><h3>DRI quality</h3><table class="ds-table"><tbody><tr><th></th><th>Today</th><th>C7 avg</th><th>C6</th></tr><tr><td>Fe(M) %</td><td>81.38<span class="ds-d up">▲ 1.32</span></td><td>80.06</td><td>80.20</td></tr><tr><td>C %</td><td>0.14<span class="ds-d flat">▲ 0.03</span></td><td>0.11</td><td>0.12</td></tr><tr><td>S %</td><td>0.012<span class="ds-d up">▼ 0.009</span></td><td>0.020</td><td>0.020</td></tr><tr><td>Non-mag %</td><td>—</td><td>11.9</td><td>11.9</td></tr></tbody></table></div><p style="color:rgba(255,255,255,.75);font-size:12px;margin:0 2px">▲▼ today vs the campaign average; green is better.</p></section><section class="ds-story"><div class="ds-kicker">DRI plant · today vs campaign</div><div class="ds-h1">KILN-2 · campaign 4</div><div class="ds-hero"><b>240<small>MT</small></b><span>Campaign day 48 since 25 Aug · avg 256 MT/day · prev. C3 242</span></div><div class="ds-panel"><h3>Production &amp; consumption</h3><table class="ds-table"><tbody><tr><th></th><th>Today</th><th>C4 avg</th><th>C3</th></tr><tr><td>DRI MT/day</td><td>240<span class="ds-d down">▼ 16</span></td><td>256</td><td>242</td></tr><tr><td>Ore yield %</td><td>62.5<span class="ds-d flat">= </span></td><td>62.5</td><td>62.5</td></tr><tr><td>"A" grade %</td><td>83.0<span class="ds-d down">▼ 7.7</span></td><td>90.7</td><td>89.3</td></tr><tr><td>Sp. coal</td><td>0.95<span class="ds-d flat">= </span></td><td>0.95</td><td>0.95</td></tr><tr><td>Sp. iron</td><td>1.60<span class="ds-d flat">= </span></td><td>1.60</td><td>1.60</td></tr><tr><td>Sp. dolomite</td><td>0.030<span class="ds-d flat">= </span></td><td>0.030</td><td>0.030</td></tr><tr><td>Coal F.C. %</td><td>48.1<span class="ds-d flat">= </span></td><td>48.1</td><td>48.1</td></tr><tr><td>Sp. power</td><td>80<span class="ds-d flat">= </span></td><td>80</td><td>80</td></tr></tbody></table></div><div class="ds-panel"><h3>DRI quality</h3><table class="ds-table"><tbody><tr><th></th><th>Today</th><th>C4 avg</th><th>C3</th></tr><tr><td>Fe(M) %</td><td>80.21<span class="ds-d up">▲ 0.51</span></td><td>79.70</td><td>79.91</td></tr><tr><td>C %</td><td>0.09<span class="ds-d flat">▼ 0.03</span></td><td>0.12</td><td>0.11</td></tr><tr><td>S %</td><td>0.020<span class="ds-d flat">= </span></td><td>0.020</td><td>0.022</td></tr><tr><td>Non-mag %</td><td>11.0<span class="ds-d up">▼ 0.7</span></td><td>11.7</td><td>11.5</td></tr></tbody></table></div><p style="color:rgba(255,255,255,.75);font-size:12px;margin:0 2px">▲▼ today vs the campaign average; green is better.</p></section><section class="ds-story"><div class="ds-kicker">Power plant · 11 Oct</div><div class="ds-h1">Power plant</div><div class="ds-hero"><b>13.68<small>MW</small></b><span>Target 14 MW · 328 MWh generated</span><span class="ds-chip warn">Close to target</span></div><div class="ds-panel"><h3>Today vs campaign and month</h3><table class="ds-table"><tbody><tr><th></th><th>Today</th><th>Camp. avg</th><th>MTD avg</th></tr><tr><td>Avg MW</td><td>13.68<span class="ds-d flat">= </span></td><td>13.68</td><td>13.92</td></tr><tr><td>Import MWh/day</td><td>21.6<span class="ds-d up">▼ 4.1</span></td><td>25.7</td><td>26.3</td></tr><tr><td>Export MWh/day</td><td>29.5<span class="ds-d down">▼ 0.4</span></td><td>29.9</td><td>29.5</td></tr><tr><td>Aux %</td><td>10.5<span class="ds-d down">▲ 0.4</span></td><td>10.1</td><td>9.9</td></tr><tr><td>Steam TPH</td><td>78.3<span class="ds-d up">▲ 2.9</span></td><td>75.3</td><td>76.2</td></tr><tr><td>SSC t/MWh</td><td>4.82<span class="ds-d up">▼ 0.12</span></td><td>4.94</td><td>4.81</td></tr><tr><td>PLF</td><td>0.82<span class="ds-d flat">= </span></td><td>0.82</td><td>0.82</td></tr><tr><td>Power factor</td><td>—</td><td>0.95</td><td>0.95</td></tr></tbody></table></div><div class="ds-panel"><h3>By kiln today</h3><table class="ds-table"><tbody><tr><th>Kiln</th><th>MW</th><th>Camp. MW</th><th>Aux %</th><th>SSC</th><th>TG h</th></tr><tr><td>KILN-1</td><td>6.52<span class="ds-d down">▼ 0.42</span></td><td>6.94</td><td>10.8</td><td>4.68</td><td>24.0</td></tr><tr><td>KILN-2</td><td>7.16<span class="ds-d up">▲ 0.42</span></td><td>6.74</td><td>10.3</td><td>4.94</td><td>24.0</td></tr></tbody></table></div></section><section class="ds-story"><div class="ds-kicker">Power plant · 11 Oct</div><div class="ds-h1">Where the power went</div><div class="ds-hero"><b>21.6<small>MWh</small></b><span>imported from the grid · export 29.5 MWh</span></div><div class="ds-panel"><h3>Share of generated + imported (350 MWh)</h3><div class="ds-bar"><span>DRI plant</span><i style="width:17.6%"></i><span>12%</span></div><div class="ds-bar"><span>Power plant aux</span><i style="width:14.2%"></i><span>10%</span></div><div class="ds-bar"><span>Export</span><i style="width:12.2%"></i><span>8%</span></div><div class="ds-bar"><span>Other</span><i class="mark" style="width:100.0%"></i><span>69%</span></div></div><div class="ds-panel"><h3>Running hours today</h3><table class="ds-table"><tbody><tr><th>Kiln</th><th>TG</th><th>WHRB</th><th>DG</th></tr><tr><td>KILN-1</td><td>24.0</td><td>23.0</td><td>0.0</td></tr><tr><td>KILN-2</td><td>24.0</td><td>23.0</td><td>0.0</td></tr></tbody></table></div></section><section class="ds-story"><div class="ds-kicker">DRI &amp; power · last 4 per kiln</div><div class="ds-h1">Campaigns compared</div><div class="ds-panel"><h3>Production (● current, to date)</h3><table class="ds-table"><tbody><tr><th>Campaign</th><th>Days</th><th>MT/day</th><th>Yield %</th><th>"A" %</th><th>Sp. coal</th></tr><tr><td>K1 · C7 ●</td><td>27</td><td>251</td><td>64.5</td><td>91.6</td><td>0.95</td></tr><tr><td>K1 · C6</td><td>36</td><td>251</td><td>64.5</td><td>92.2</td><td>0.95</td></tr><tr><td>K2 · C4 ●</td><td>48</td><td>256</td><td>62.5</td><td>90.7</td><td>0.95</td></tr><tr><td>K2 · C3</td><td>15</td><td>242</td><td>62.5</td><td>89.3</td><td>0.95</td></tr></tbody></table></div><div class="ds-panel"><h3>Quality &amp; power</h3><table class="ds-table"><tbody><tr><th>Campaign</th><th>Fe(M) %</th><th>MW</th><th>Aux %</th><th>SSC</th></tr><tr><td>K1 · C7 ●</td><td>80.06</td><td>6.94</td><td>9.9</td><td>4.73</td></tr><tr><td>K1 · C6</td><td>80.20</td><td>6.91</td><td>9.8</td><td>4.86</td></tr><tr><td>K2 · C4 ●</td><td>79.70</td><td>6.74</td><td>10.3</td><td>5.06</td></tr><tr><td>K2 · C3</td><td>79.91</td><td>6.64</td><td>10.2</td><td>4.97</td></tr></tbody></table></div></section><section class="ds-story"><div class="ds-kicker">KILN-1 C7 · KILN-2 C4 · today vs campaign vs all campaigns</div><div class="ds-h1">Breakdowns</div><div class="ds-hero"><b>2<small>breakdowns</small></b><span>Current campaigns average 3.0/day · all campaigns 2.8/day</span><span class="ds-chip good">At or below the campaign average</span></div><div class="ds-panel"><h3>Power plant breakdowns · per day</h3><table class="ds-table"><tbody><tr><th></th><th>Today</th><th>Campaign</th><th>All camp.</th></tr><tr><td>KILN-1 · count</td><td>2<span class="ds-d down">▲ 0.8</span></td><td>1.22</td><td>1.08</td></tr><tr><td>KILN-1 · hours</td><td>4.0<span class="ds-d down">▲ 1.9</span></td><td>2.06</td><td>1.71</td></tr><tr><td>KILN-2 · count</td><td>0<span class="ds-d up">▼ 0.8</span></td><td>0.81</td><td>0.86</td></tr><tr><td>KILN-2 · hours</td><td>0.0<span class="ds-d up">▼ 1.0</span></td><td>1.02</td><td>1.21</td></tr></tbody></table></div><div class="ds-panel"><h3>Power plant · by department (count per day)</h3><table class="ds-table"><tbody><tr><th></th><th>Today</th><th>Campaign</th><th>All camp.</th></tr><tr><td>Boiler</td><td>2<span class="ds-d down">▲ 1.2</span></td><td>0.80</td><td>0.71</td></tr><tr><td>WHRB</td><td>0<span class="ds-d up">▼ 0.5</span></td><td>0.55</td><td>0.62</td></tr><tr><td>TG</td><td>0<span class="ds-d up">▼ 0.7</span></td><td>0.69</td><td>0.60</td></tr></tbody></table></div><div class="ds-panel"><h3>DRI breakdowns · per day</h3><table class="ds-table"><tbody><tr><th></th><th>Today</th><th>Campaign</th><th>All camp.</th></tr><tr><td>KILN-1 · count</td><td>0<span class="ds-d up">▼ 0.6</span></td><td>0.59</td><td>0.48</td></tr><tr><td>KILN-1 · hours</td><td>0.0<span class="ds-d up">▼ 0.7</span></td><td>0.68</td><td>0.50</td></tr><tr><td>KILN-2 · count</td><td>0<span class="ds-d up">▼ 0.4</span></td><td>0.40</td><td>0.35</td></tr><tr><td>KILN-2 · hours</td><td>0.0<span class="ds-d up">▼ 0.4</span></td><td>0.39</td><td>0.37</td></tr></tbody></table></div><div class="ds-panel"><h3>DRI · by department (count per day)</h3><table class="ds-table"><tbody><tr><th></th><th>Today</th><th>Campaign</th><th>All camp.</th></tr><tr><td>Kiln</td><td>0<span class="ds-d up">▼ 0.4</span></td><td>0.44</td><td>0.29</td></tr><tr><td>Cooler</td><td>0<span class="ds-d up">▼ 0.3</span></td><td>0.26</td><td>0.27</td></tr><tr><td>Feed</td><td>0<span class="ds-d up">▼ 0.3</span></td><td>0.28</td><td>0.27</td></tr></tbody></table></div><div class="ds-panel"><h3>Remarks on the day's reports</h3><ul class="ds-list"><li><b>KILN-1 · DRI</b>Feed chute jam 40 min</li><li><b>KILN-2 · Power plant · WHRB</b>Soot blowing extended</li></ul></div><p style="color:rgba(255,255,255,.75);font-size:12px;margin:0 2px">"All camp." covers every campaign in the last 400 days. Fewer is better (green).</p></section><section class="ds-story"><div class="ds-kicker">11 Oct 6 AM – 12 Oct 6 AM</div><div class="ds-h1">Inward</div><div class="ds-hero"><b>1,700<small>MT</small></b><span>66 trucks · month average 457 MT/day, 18 trucks/day</span></div><div class="ds-panel"><h3>By material and party</h3><table class="ds-table"><tbody><tr><th>Material / party</th><th>Trucks</th><th>MT</th><th>TAT</th></tr><tr class="group"><td>RB2 COAL</td><td>19</td><td>505.2</td><td>142</td></tr><tr class=""><td class="ind">Alpha Minerals</td><td>10</td><td>258.4</td><td>146</td></tr><tr class=""><td class="ind">Deccan Ores</td><td>5</td><td>132.7</td><td>143</td></tr><tr class=""><td class="ind">Bharat Coal</td><td>4</td><td>114.1</td><td>132</td></tr><tr class="group"><td>DOLOMITE</td><td>20</td><td>497.9</td><td>159</td></tr><tr class=""><td class="ind">Deccan Ores</td><td>12</td><td>299.7</td><td>171</td></tr><tr class=""><td class="ind">Alpha Minerals</td><td>6</td><td>143.8</td><td>128</td></tr><tr class=""><td class="ind">Bharat Coal</td><td>2</td><td>54.4</td><td>178</td></tr><tr class="group"><td>PELLET</td><td>14</td><td>369.0</td><td>161</td></tr><tr class=""><td class="ind">Deccan Ores</td><td>5</td><td>137.8</td><td>197</td></tr><tr class=""><td class="ind">Bharat Coal</td><td>5</td><td>119.7</td><td>148</td></tr><tr class=""><td class="ind">Alpha Minerals</td><td>4</td><td>111.4</td><td>132</td></tr><tr class="group"><td>IRON ORE 10-40</td><td>13</td><td>328.0</td><td>171</td></tr><tr class=""><td class="ind">Deccan Ores</td><td>6</td><td>146.4</td><td>226</td></tr><tr class=""><td class="ind">Alpha Minerals</td><td>4</td><td>108.3</td><td>177</td></tr><tr class=""><td class="ind">Bharat Coal</td><td>3</td><td>73.2</td><td>56</td></tr></tbody></table></div></section><section class="ds-story"><div class="ds-kicker">11 Oct 6 AM – 12 Oct 6 AM</div><div class="ds-h1">Outward</div><div class="ds-hero"><b>625<small>MT</small></b><span>24 trucks · month average 226 MT/day, 9 trucks/day</span></div><div class="ds-panel"><h3>By party</h3><table class="ds-table"><tbody><tr><th>Party</th><th>Trucks</th><th>MT</th><th>TAT</th></tr><tr><td>Foundry C</td><td>17</td><td>441.9</td><td>148</td></tr><tr><td>Steel Buyer A</td><td>7</td><td>182.9</td><td>183</td></tr><tr class="total"><td>Total</td><td>24</td><td>624.8</td><td>158</td></tr></tbody></table></div></section><section class="ds-story"><div class="ds-kicker">Stock now · 30DB = stock + pending orders − 30 days' consumption</div><div class="ds-h1">Current stock</div><div class="ds-hero"><b>540<small>MT</small></b><span>SPONGE IRON in stock · pending sales orders 1,560 MT</span><span class="ds-chip bad">4 raw materials short for 30 days</span></div><div class="ds-panel"><h3>Finished goods</h3><table class="ds-table"><tbody><tr><th>Material</th><th>Stock MT</th><th>Pending SO</th><th>30DB</th></tr><tr><td>SPONGE IRON</td><td>540.0</td><td>1,560</td><td>—</td></tr></tbody></table></div><div class="ds-panel"><h3>Raw materials</h3><table class="ds-table"><tbody><tr><th>Material</th><th>Stock MT</th><th>Pending PO</th><th>30DB</th></tr><tr><td>IRON ORE PELLET</td><td>9,600.0</td><td>6,000</td><td><b style="color:var(--down)">-6,400</b></td></tr><tr><td>COAL WASHED</td><td>6,400.0</td><td>5,000</td><td><b style="color:var(--down)">-3,600</b></td></tr><tr><td>COAL ROM B</td><td>1,300.0</td><td>—</td><td><b style="color:var(--down)">-1,700</b></td></tr><tr><td>DOLOMITE</td><td>90.0</td><td>—</td><td><b style="color:var(--down)">-285</b></td></tr></tbody></table></div><p style="color:rgba(255,255,255,.75);font-size:12px;margin:0 2px">30-day consumption: IRON ORE PELLET 22,000 · COAL WASHED 15,000 · COAL ROM B 3,000 · DOLOMITE 375 MT. Stock is the current balance, not as of the report day.</p></section><section class="ds-story"><div class="ds-kicker">Weighbridge · first to second weighing</div><div class="ds-h1">Truck turnaround</div><div class="ds-hero"><b>157<small>min avg</small></b><span>7 trucks waiting for second weighing at 6 AM</span><span class="ds-chip warn">Inward 3 · outward 4 waiting</span></div><div class="ds-panel"><h3>Today vs month</h3><table class="ds-table"><tbody><tr><th></th><th>Today</th><th>MTD</th></tr><tr><td>Average min</td><td>157<span class="ds-d down">▲ 8</span></td><td>149</td></tr><tr><td>Median min</td><td>150<span class="ds-d down">▲ 4</span></td><td>146</td></tr><tr><td>P90 min</td><td>267<span class="ds-d down">▲ 6</span></td><td>262</td></tr><tr><td>Inward avg</td><td>157<span class="ds-d down">▲ 9</span></td><td>148</td></tr><tr><td>Outward avg</td><td>158<span class="ds-d down">▲ 8</span></td><td>150</td></tr></tbody></table></div><div class="ds-panel"><h3>Distribution today</h3><div class="ds-bar"><span>≤ 30 min</span><i style="width:15.8%"></i><span>6</span></div><div class="ds-bar"><span>30–60</span><i style="width:18.4%"></i><span>7</span></div><div class="ds-bar"><span>60–120</span><i style="width:52.6%"></i><span>20</span></div><div class="ds-bar"><span>120–240</span><i class="mark" style="width:100.0%"></i><span>38</span></div><div class="ds-bar"><span>&gt; 240</span><i class="mark" style="width:50.0%"></i><span>19</span></div></div></section><section class="ds-story"><div class="ds-kicker">Sales · FG-0001 · open orders</div><div class="ds-h1">Pending to deliver</div><div class="ds-hero"><b>1,560<small>MT</small></b><span>₹4.68 Cr · 6 open orders</span><span class="ds-chip warn">1,560 MT past delivery date</span></div><div class="ds-panel"><h3>By customer</h3><table class="ds-table"><tbody><tr><th>Customer</th><th>Pending</th><th>Late</th><th>₹ Cr</th></tr><tr><td>Foundry C</td><td>900</td><td>900</td><td>2.70</td></tr><tr><td>Steel Buyer A</td><td>360</td><td>360</td><td>1.08</td></tr><tr><td>Steel Buyer B</td><td>300</td><td>300</td><td>0.90</td></tr></tbody></table></div></section><section class="ds-story active"><div class="ds-kicker">All sales invoices · as of the next morning</div><div class="ds-h1">Receivables</div><div class="ds-hero"><b>₹9.56 Cr<small>overdue</small></b><span>100% of ₹9.56 Cr owed · oldest 72 days</span><span class="ds-chip bad">₹5.88 Cr over 20 days</span></div><div class="ds-panel"><h3>Ageing · ₹ Cr</h3><div class="ds-bar"><span>Not due</span><i style="width:0.0%"></i><span>0.00</span></div><div class="ds-bar"><span>1–5 days</span><i style="width:49.2%"></i><span>2.89</span></div><div class="ds-bar"><span>6–10 days</span><i style="width:11.6%"></i><span>0.68</span></div><div class="ds-bar"><span>11–20 days</span><i style="width:1.8%"></i><span>0.10</span></div><div class="ds-bar"><span>&gt; 20 days</span><i class="mark" style="width:100.0%"></i><span>5.88</span></div></div><div class="ds-panel"><h3>Most overdue</h3><table class="ds-table"><tbody><tr><th>Customer</th><th>₹ Cr</th><th>Days</th></tr><tr><td>Steel Buyer B</td><td>2.95</td><td>72</td></tr><tr><td>Steel Buyer A</td><td>2.43</td><td>68</td></tr><tr><td>Re-roller D</td><td>2.10</td><td>67</td></tr><tr><td>Foundry C</td><td>2.09</td><td>72</td></tr></tbody></table></div></section></main>
+    <footer class="ds-foot">
+      <button id="ds-back" aria-label="Previous story">‹ Back</button>
+      <span id="ds-count">14 / 14 · Receivables</span>
+      <button id="ds-forward" aria-label="Next story" disabled="">Next ›</button>
+    </footer>
+  </div>
+</div><script>(function(){var st=[].slice.call(document.querySelectorAll('.ds-story')),at=0,A=['summary','production','production','production','power','power','production','production','weighbridge','weighbridge','weighbridge','weighbridge','sales','sales'],ph=document.querySelector('.ds-phone');
+function show(i){at=Math.max(0,Math.min(st.length-1,i));st.forEach(function(e,j){e.classList.toggle('active',j===at);});ph.dataset.area=A[at]||'summary';
+document.getElementById('ds-progress').innerHTML=st.map(function(_,j){return '<i class="'+(j<at?'done':j===at?'on':'')+'"></i>';}).join('');
+document.getElementById('ds-count').textContent=(at+1)+' / '+st.length+' (sample data)';document.getElementById('ds-back').disabled=at===0;document.getElementById('ds-forward').disabled=at===st.length-1;}
+var stage=document.getElementById('ds-stage');stage.addEventListener('click',function(e){var b=stage.getBoundingClientRect();show(e.clientX-b.left<b.width/3?at-1:at+1);});
+var x=null;stage.addEventListener('touchstart',function(e){x=e.touches[0].clientX;},{passive:true});stage.addEventListener('touchend',function(e){if(x==null)return;var dx=e.changedTouches[0].clientX-x;x=null;if(Math.abs(dx)>50){e.preventDefault();show(dx<0?at+1:at-1);}});
+document.getElementById('ds-back').onclick=function(){show(at-1);};document.getElementById('ds-forward').onclick=function(){show(at+1);};
+document.addEventListener('keydown',function(e){if(e.key==='ArrowRight')show(at+1);if(e.key==='ArrowLeft')show(at-1);});show(0);})();</script></body></html>
